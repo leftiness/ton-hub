@@ -3,10 +3,11 @@
 express = require "express"
 bodyParser = require "body-parser"
 
+config = require "../config.json"
 routes = require "./routes/index.js"
 
 app = express()
-port = process.env.PORT || 5000
+port = process.env.PORT || config.port
 router = express.Router()
 
 routes.forEach (route) ->
