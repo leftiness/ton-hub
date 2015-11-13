@@ -1,0 +1,14 @@
+md-toolbar.md-whiteframe-1dp.md-toolbar-tools(layout="row")
+	md-button.md-icon-button(aria-label="[Menu]" hide-gt-lg 
+		ng-click="header.$mdSidenav('sidenav').toggle()"
+		)
+		md-icon(md-font-icon="fa fa-bars fa-lg")
+	h2(layout-margin layout-padding) {{pageTitle}}
+	span(flex="")
+	md-button.md-icon-button(aria-label="[Logout]" ui-sref="login"
+		ng-click="header.login.logout()" ng-show="!!header.login.user.username")
+		md-icon(md-font-icon="fa fa-power-off fa-lg")
+	md-button.md-icon-button(ui-sref="login" aria-label="[Login]"
+		ng-show="!!!header.login.user.username"
+		)
+		md-icon(md-font-icon="fa fa-key fa-lg")

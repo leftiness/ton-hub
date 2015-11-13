@@ -1,0 +1,26 @@
+{
+  "name": "ton-social",
+  "version": "0.0.1",
+  "authors": [
+    "Brandon Parmenter <leftiness@gmail.com>"
+  ],
+  "description": "ton-social is a site!",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leftines/ton-social"
+  },
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~0.11.2",
+    "font-awesome": "~4.4.0",
+    "lodash": "~3.10.1",
+    "restangular": "~1.5.1",
+    "less": "~2.5.3",
+    "angular-cookies": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-sanitize": "~1.4.7"
+  }
+}

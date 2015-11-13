@@ -1,0 +1,23 @@
+md-card(layout="column" layout-margin layout-padding flex="")
+	.md-title(flex="") Welcome!
+	form(name="form" ng-submit="form.$valid && signup.signup()")
+		md-input-container(flex="")
+			label Username
+			input(ng-model="signup.user.username" ng-required="true")
+		md-input-container(flex="")
+			label Password
+			input(ng-model="signup.user.password" type="password" ng-required="true")
+		md-input-container(flex="")
+			label Confirm password
+			input(ng-model="signup.user.confirm" type="password" ng-required="true"
+				compare-to="signup.user.password"
+				)
+		md-input-container(flex="")
+			label Email
+			input(ng-model="signup.user.email" type="email" ng-required="true")
+		span(layout="row" layout-sm="column" flex="")
+			md-button.md-raised.md-primary(type="submit" flex="") Sign up
+			
+	div(layout="row" layout-align-gt-sm="end center" flex="") 
+		md-button(ui-sref="login" flex="") Log in
+		md-button(ui-sref="legal" flex="") Legal

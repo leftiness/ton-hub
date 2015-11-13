@@ -1,0 +1,16 @@
+md-card(layout="column" layout-margin layout-padding flex="")
+	.md-title(flex="") Welcome back!
+	form(name="form" ng-submit="form.$valid && login.login()")
+		md-input-container(flex="")
+			label Username
+			input(ng-model="login.user.username" ng-required="true")
+		md-input-container(flex="")
+			label Password
+			input(ng-model="login.user.password" type="password" ng-required="true")
+		md-checkbox(ng-model="login.user.remember" aria-label="[Remember me]" flex="")
+			label(layout-margin layout-padding) Remember me
+		span(layout="row" layout-sm="column" flex="")
+			md-button.md-raised.md-primary(type="submit" flex="") Log in
+	div(layout="row" layout-align-gt-sm="end center" flex="")
+		md-button(ui-sref="signup" flex="") Sign up
+		md-button(ui-sref="recover" flex="") Recover

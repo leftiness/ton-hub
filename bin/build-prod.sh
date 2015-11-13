@@ -1,2 +1,2 @@
 #!/bin/bash
-npm-run-all clean -p bundle:*
+npm-run-all clean:full -p vendor:* bundle:*

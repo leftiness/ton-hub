@@ -1,0 +1,27 @@
+md-sidenav.md-sidenav-left.md-whiteframe-1dp(layout="column"
+	md-component-id="sidenav" md-is-locked-open="nav.$mdMedia('gt-lg')"
+	)
+	md-toolbar.md-whiteframe-1dp.md-toolbar-tools#sidenav-toolbar(layout="row")
+		md-button.md-icon-button.md-primary(aria-label="[Settings]" 
+			ng-click="nav.clickSettingsButton()"
+			)
+			md-icon(md-font-icon="fa fa-user fa-lg")
+		h2(layout-margin layout-padding) {{nav.set.settings.name}}
+	md-content(layout="row" flex="")
+		md-list(layout="column" flex="")
+			md-list-item(ng-repeat="item in nav.items" layout="row")
+				md-button(flex="" ui-sref="{{item.sref}}" ui-sref-active="md-primary" 
+					aria-label="[{{item.name}}]"
+					ng-click="nav.$mdSidenav('sidenav').close()"
+					)
+					md-item-content(layout="row" layout-align="start center")
+						.md-tile-content {{item.name}}
+	md-button(layout="row" layout-margin layout-padding ui-sref="settings"
+		ng-show="!!nav.login.user.username"
+		ng-click="nav.$mdSidenav('sidenav').close()"
+		)
+		span(layout="row" layout-align="start center") Settings
+	md-button(layout="row" layout-margin layout-padding ui-sref="legal"
+		ng-click="nav.$mdSidenav('sidenav').close()"
+		)
+		span(layout="row" layout-align="start center") Legal

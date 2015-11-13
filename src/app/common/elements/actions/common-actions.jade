@@ -1,0 +1,17 @@
+md-fab-speed-dial.md-fling#actions(ng-show="hasActions" md-direction="up"
+	md-open="actions.open"
+	)
+	md-fab-trigger
+		md-button.md-fab.md-accent(aria-label="[Actions]")
+			md-icon(md-font-icon="fa fa-bars fa-lg")
+	md-fab-actions
+		div(ng-repeat="action in actions.service.actions")
+			md-button.md-fab.md-raised.md-mini.md-primary(
+				aria-label="[{{action.name}}]" ng-click="actions.do(action)"
+				ng-hide="action.login && !!!actions.login.user.username"
+				)
+				md-tooltip(md-direction="left" md-visible="actions.tooltip"
+					ng-hide="action.login && !!!actions.login.user.username"
+					)
+					div {{action.name}}
+				md-icon(md-font-icon="fa {{action.icon}} fa-lg")

@@ -1,0 +1,21 @@
+doctype html
+html(ng-app="ton-social")
+	head
+		base(href="/")
+		meta(charset="utf-8")
+		meta(name="viewport" content="width=device-width, maximum-scale=1.0")
+		meta(name="fragment" content="!")
+		title(ng-bind="'SiteName - ' + pageTitle")
+		meta(name="description" content="{{pageDescription}}")
+		link(href="/vendor.css" rel="stylesheet")
+		link(href="/app.css" rel="stylesheet")
+	body(ng-class="bodyClasses" ng-controller="MainCtrl" layout="row")
+		common-sidenav
+		div(layout="column" flex="")
+			common-header
+			common-loading
+			md-content
+				div#ui-view(ui-view autoscroll="false")
+			common-actions
+		script(src="/vendor.js")
+		script(src="/bundle.js")

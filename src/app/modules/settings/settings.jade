@@ -1,0 +1,14 @@
+md-card(layout="column" layout-margin layout-padding flex="")
+	.md-title(flex="") What do you want to change?
+	form(ng-submit="set.submit()")
+		md-input-container(flex="")
+			label Name
+			input(ng-model="set.settings.name")
+		md-input-container(flex="")
+			label Surname
+			input(ng-model="set.settings.surname")
+		md-input-container(flex="")
+			label Email
+			input(ng-model="set.settings.email")
+		span(layout="row" layout-sm="column" flex="")
+			md-button.md-raised.md-primary(type="submit" flex="") Save
