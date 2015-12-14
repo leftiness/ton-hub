@@ -4,6 +4,7 @@ express = require "express"
 bodyParser = require "body-parser"
 cookieParser = require "cookie-parser"
 passport = require "passport"
+session = require "express-session"
 
 auth = require "./common/AuthService.js"
 config = require "../config.json"
@@ -20,10 +21,20 @@ opt =
 routes.forEach (route) ->
 	router[route.verb] route.path, route.fn
 
+# TODO Not keyboard cat... but what should it be? What are these options anyway?
+sessionConf =
+	secret: "keyboard cat"
+	resave: false
+	saveUninitialized: true
+
+# TODO Warning The default server-side session storage, MemoryStore, is
+# purposely not designed for a production environment. It will leak memory
+# under most conditions, does not scale past a single process, and is meant
+# for debugging and developing.
+app.use session sessionConf
 app.use express.static __dirname
 app.use bodyParser.json()
 app.use cookieParser()
-#TODO app.use express.session { secret : "keyboard cat" }
 app.use passport.initialize()
 app.use passport.session()
 
