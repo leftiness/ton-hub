@@ -1,6 +1,5 @@
 passport = require "passport"
 LocalStrategy = require("passport-local").Strategy
-BasicStrategy = require("passport-http").BasicStrategy
 ClientPasswordStrategy = require("passport-oauth2-client-password").Strategy
 BearerStrategy = require("passport-http-bearer").Strategy
 
@@ -20,12 +19,6 @@ passport.use new LocalStrategy (username, password, done) ->
 		if user.password isnt password then return done null, false
 		done null, user
 
-passport.use new BasicStrategy (username, password, done) ->
-	db.clients.findByClientID username, (err, client) ->
-		if err then return done err
-		if !client then return done null, false
-		if client.clientSecret isnt password then return done null, false
-		done null, client
 
 passport.use new ClientPasswordStrategy (clientID, clientSecret, done) ->
 	db.clients.findByClientID clientID, (err, client) ->

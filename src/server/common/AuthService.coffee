@@ -71,7 +71,7 @@ and passport-oauth2-client-password if I don't use them.
 ###
 
 service.token = [
-	passport.authenticate ["basic", "oauth2-client-pasword"], { session: false }
+	passport.authenticate "oauth2-client-pasword", { session: false }
 	server.token()
 	server.errorHandler()
 ]
