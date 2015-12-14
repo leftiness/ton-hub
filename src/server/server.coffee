@@ -5,6 +5,7 @@ bodyParser = require "body-parser"
 cookieParser = require "cookie-parser"
 passport = require "passport"
 session = require "express-session"
+morgan = require "morgan"
 
 auth = require "./common/AuthService.js"
 config = require "../config.json"
@@ -27,6 +28,7 @@ sessionConf =
 	resave: false
 	saveUninitialized: true
 
+app.use morgan "dev"
 # TODO Warning The default server-side session storage, MemoryStore, is
 # purposely not designed for a production environment. It will leak memory
 # under most conditions, does not scale past a single process, and is meant
