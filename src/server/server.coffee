@@ -37,16 +37,6 @@ app.use passport.initialize()
 app.use passport.session()
 
 ###TODO
-This guy uses an express.errorHandler
-
-app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-
-What does that do for you?
-
-No idea what I'll have to do to get the session stuff working, either. ^.^"
-###
-
-###TODO
 Honestly not even sure if all of this stuff works. That's why I'm creating a
 branch. When I finally get it all working, I'll have a good, clean auth feature,
 and I'll just commit those changes in one commit to the master branch without
@@ -71,13 +61,6 @@ if one of them fails, it won't continue going on to the next one. So, if the
 passport req/res function fails, it won't go on to the req/res function for
 returning the protected resource.
 ###
-
-###TODO
-Might still need to do something to make connect-ensure-login work.
-https://github.com/jaredhanson/connect-ensure-login
-###
-
-app.use "/api", router
 
 confRoute = (rt, type) ->
 	app[rt.verb] "/api/#{type}#{rt.path}", [

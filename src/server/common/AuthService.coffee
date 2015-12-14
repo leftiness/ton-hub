@@ -64,12 +64,6 @@ service.decision = [
 		server.decision()
 	]
 
-###TODO
-I want to use bearer tokens instead of basic/oauth2-client-password.
-Remember to remove the dependency on passport-http, passport-local,
-and passport-oauth2-client-password if I don't use them.
-###
-
 service.token = [
 	passport.authenticate "oauth2-client-pasword", { session: false }
 	server.token()

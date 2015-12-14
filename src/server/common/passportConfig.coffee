@@ -3,7 +3,7 @@ LocalStrategy = require("passport-local").Strategy
 ClientPasswordStrategy = require("passport-oauth2-client-password").Strategy
 BearerStrategy = require("passport-http-bearer").Strategy
 
-db = require ("../database/index.js")
+db = require "../database/index.js"
 
 passport.serializeUser (user, done) ->
 	done null, user.id

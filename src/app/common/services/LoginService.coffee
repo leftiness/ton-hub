@@ -27,7 +27,7 @@ LoginService = ($state, $mdToast, Restangular, SettingsService) ->
 			$mdToast.show toast
 		rest.post(json).then okLogin, koLogin
 	self.logout = ->
-		self.user = {}
+		self.user = {} #TODO Stubbed. Have to tell the serer to invalidate session.
 	self.signup = (json) ->
 		rest = Restangular.all "signup"
 		okSignup = (res) ->
