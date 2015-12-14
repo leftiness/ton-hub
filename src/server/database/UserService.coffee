@@ -15,12 +15,12 @@ users = [
 
 service =
 	find: (id, done) ->
-		users.forEach (user) ->
-			if user.id == id then return done null, user
-		done null, null
+		for user in users
+			if user.id == id then return done null, users
+		return done null, null
 	findByUsername: (username, done) ->
-		users.forEach (user) ->
+		for user in users
 			if user.username == username then return done null, user
-		done null, null
+		return done null, null
 
 module.exports = service
