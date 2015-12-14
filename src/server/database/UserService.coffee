@@ -22,3 +22,5 @@ service =
 		users.forEach (user) ->
 			if user.username == username then return done null, user
 		done null, null
+
+module.exports = service
