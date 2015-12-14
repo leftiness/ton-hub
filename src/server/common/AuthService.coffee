@@ -34,12 +34,6 @@ server.exchange oauth2.exchange.code (client, code, redirectURI, done) ->
 				if err then return done err
 				done null, token
 
-getLoginRedirect = (req) ->
-	id = req.oauth2.transactionID
-	user = req.user
-	client = req.oauth2.client
-	string = "/login?transactionID=#{id}&user=#{user}&client=#{client}"
-
 service = {}
 
 service.authorization = [
@@ -55,7 +49,14 @@ service.authorization = [
 				###
 				done null, client, redirectURI
 		(req, res) ->
-			res.redirect getLoginRedirect req
+			id = req.oauth2.transactionID
+			user = req.user
+			client = req.oauth2.client
+			# TODO Need to create /authorize module on front end.
+			# It'll tell an authenticated user "this app requests these permissions."
+			# The user can then accept or deny.
+			redirect = "/authorize?transactionID=#{id}&user=#{user}&client=#{client}"
+			res.redirect redirect
 	]
 
 service.decision = [
