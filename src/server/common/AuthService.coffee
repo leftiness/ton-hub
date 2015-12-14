@@ -43,7 +43,7 @@ getLoginRedirect = (req) ->
 service = {}
 
 service.authorization = [
-		ensure.ensureLoggedIn()
+		ensure.ensureLoggedIn "/login"
 		server.authorization (clientID, redirectURI, done) ->
 			db.clients.findByClientID clientID, (err, client) ->
 				if err then return done err
@@ -59,7 +59,7 @@ service.authorization = [
 	]
 
 service.decision = [
-		ensure.ensureLoggedIn()
+		ensure.ensureLoggedIn "/login"
 		server.decision()
 	]
 
