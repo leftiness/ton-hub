@@ -1,26 +1,22 @@
+passport = require "passport"
+
 route =
 	verb: "post"
-	fn: (req, res) ->
-		b = req.body
-		user =
-			username: b.username
-			password: b.password
-			remember: b.remember
-		# Obviously this is not the final function
-		if user.username == "error"
-			# Why does 400 need json.reason when 200 needs json.data.token?
-			json =
-				reason: "Dummy error response"
-			res.status(400).json json
-		else
-			json =
-				data:
-					token: 12345
-			res.status(200).json json
 	path: "/local/login"
 	auth: true
 	local: false
 	bearer: false
 	custom: true
+	fn: (req, res, next) ->
+		auth = passport.authenticate "local", (err, user, info) ->
+			if err then return next err
+			else if !user
+				json =
+					reason:
+						info.message
+				return res.status(401).json json
+			else
+				return res.status(200).json json
+		return auth req, res, next
 
 module.exports = route

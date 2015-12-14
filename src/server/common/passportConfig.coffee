@@ -4,37 +4,44 @@ ClientPasswordStrategy = require("passport-oauth2-client-password").Strategy
 BearerStrategy = require("passport-http-bearer").Strategy
 
 db = require "../database/index.js"
+messages = require "./messages.js"
+
+generic = messages.error.generic
+invalid = messages.invalid.credentials
 
 passport.serializeUser (user, done) ->
-	done null, user.id
+	return done null, user.id
 
 passport.deserializeUser (id, done) ->
 	db.users.find id, (err, user) ->
-		done err, user
+		return done err, user
 
 passport.use new LocalStrategy (username, password, done) ->
 	db.users.findByUsername username, (err, user) ->
-		if err then return done err
-		if !user then return done null, false
-		if user.password isnt password then return done null, false
-		done null, user
-
+		if err then return done err, false, { message: generic }
+		else if !user then return done null, false, { message: invalid }
+		else if user.password isnt password
+			return done null, false, { message: invalid }
+		else return done null, user
 
 passport.use new ClientPasswordStrategy (clientID, clientSecret, done) ->
 	db.clients.findByClientID clientID, (err, client) ->
-		if err then return done err
-		if !client then return done null, false
-		if client.clientSecret isnt clientSecret then return done null, false
-		done null, client
+		if err then return done err, false, { message: generic }
+		else if !client then return done null, false, { message: invalid }
+		else if client.clientSecret isnt clientSecret
+			return done null, false, { message: invalid }
+		else return done null, client
 
 passport.use new BearerStrategy (accessToken, done) ->
 	db.accessTokens.find accessToken, (err, token) ->
-		if err then return done err
-		if !token then return done null, false
-		db.users.find token.userID, (err, user) ->
+		if err then	return done err, false, { message: generic }
+		else if !token then return done null, false, { message: invalid }
+		else
+			db.users.find token.userID, (err, user) ->
 			### TODO
 			To keep this example simple, restricted scopes are not implemented
 			and this is just for illustrative purposes.
 			###
-			info = { scope: "*" }
-			done null, user, info
+			info =
+				scope: "*"
+			return done null, user, info
