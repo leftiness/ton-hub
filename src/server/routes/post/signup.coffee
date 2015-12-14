@@ -1,6 +1,10 @@
 route =
 	verb: "post"
 	path: "/signup"
+	auth: false
+	local: false
+	bearer: false
+	custom: false
 	fn: (req, res) ->
 		b = req.body
 		user =

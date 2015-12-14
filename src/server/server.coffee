@@ -5,6 +5,7 @@ bodyParser = require "body-parser"
 cookieParser = require "cookie-parser"
 passport = require "passport"
 session = require "express-session"
+ensure = require "connect-ensure-login"
 morgan = require "morgan"
 
 auth = require "./common/AuthService.js"
@@ -15,13 +16,8 @@ require "./common/passportConfig.js"
 
 app = express()
 port = process.env.PORT || config.port
-router = express.Router()
 opt =
 	root: __dirname
-
-routes.forEach (route) ->
-	router[route.verb] route.path, route.fn
-
 # TODO Not keyboard cat... but what should it be? What are these options anyway?
 sessionConf =
 	secret: "keyboard cat"
@@ -83,6 +79,21 @@ https://github.com/jaredhanson/connect-ensure-login
 
 app.use "/api", router
 
+confRoute = (rt, type) ->
+	app[rt.verb] "/api/#{type}#{rt.path}", [
+		ensure.ensureLoggedIn "/login"
+		passport.authenticate type
+		rt.fn
+	]
+
+routes.forEach (rt) ->
+	# TODO Harden the local API routes. Only allow ton-hub to do that.
+	# The bearer API routes are for others to use.
+	# Harden by using client password strategy instead of local strategy?
+	if !rt.auth or rt.custom then app[rt.verb] "/api#{rt.path}", rt.fn
+	if rt.local then confRoute rt, "local"
+	if rt.bearer then confRoute rt, "bearer"
+	
 app.all "*", (req, res) ->
 	res.sendFile "index.html", opt
 

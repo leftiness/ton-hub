@@ -1,6 +1,5 @@
 route =
 	verb: "post"
-	path: "/login"
 	fn: (req, res) ->
 		b = req.body
 		user =
@@ -18,5 +17,10 @@ route =
 				data:
 					token: 12345
 			res.status(200).json json
+	path: "/local/login"
+	auth: true
+	local: false
+	bearer: false
+	custom: true
 
 module.exports = route

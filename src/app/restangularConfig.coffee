@@ -1,6 +1,6 @@
 config = (RestangularProvider) ->
 	"use strict"
-	RestangularProvider.setBaseUrl "/api"
+	RestangularProvider.setBaseUrl "/api/local"
 
 config.$inject = ["RestangularProvider"]
 
