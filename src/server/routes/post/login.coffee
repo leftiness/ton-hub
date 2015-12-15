@@ -15,8 +15,9 @@ route =
 					reason:
 						info.message
 				return res.status(401).json json
-			else
-				return res.status(200).send()
+			else req.logIn user, (err) ->
+					if err then return next err
+					else return res.status(200).send()
 		return auth req, res, next
 
 module.exports = route
