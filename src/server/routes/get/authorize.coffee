@@ -3,10 +3,7 @@ auth = require "../../common/AuthService.js"
 routes =
 	verb: "get"
 	path: "/client/authorize"
-	auth: false
-	local: false
-	bearer: false
-	custom: true
+	auth: true
 	fn: auth.authorization
 
 module.exports = routes

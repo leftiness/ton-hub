@@ -1,10 +1,7 @@
 route =
 	verb: "get"
 	path: "/teapot"
-	auth: true
-	local: true
-	bearer: true
-	custom: false
+	auth: false
 	fn: (req, res) ->
 		res.status(418).send """
 			<html>

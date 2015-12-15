@@ -5,9 +5,6 @@ routes =
 	verb: "get"
 	path: "/settings"
 	auth: true
-	local: true
-	bearer: true
-	custom: false
 	fn: (req, res) ->
 		### TODO
 		complete = (response) ->

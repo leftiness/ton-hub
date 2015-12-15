@@ -2,11 +2,8 @@ passport = require "passport"
 
 route =
 	verb: "post"
-	path: "/local/login"
-	auth: true
-	local: false
-	bearer: false
-	custom: true
+	path: "/login"
+	auth: false
 	fn: (req, res, next) ->
 		auth = passport.authenticate "local", (err, user, info) ->
 			if err then return next err
@@ -16,8 +13,8 @@ route =
 						info.message
 				return res.status(401).json json
 			else req.logIn user, (err) ->
-					if err then return next err
-					else return res.status(200).send()
+				if err then return next err
+				else return res.status(200).send()
 		return auth req, res, next
 
 module.exports = route

@@ -62,21 +62,16 @@ passport req/res function fails, it won't go on to the req/res function for
 returning the protected resource.
 ###
 
-confRoute = (rt, type) ->
-	app[rt.verb] "/api/#{type}#{rt.path}", [
-		ensure.ensureLoggedIn "/login"
-		passport.authenticate type
-		rt.fn
-	]
-
 routes.forEach (rt) ->
 	# TODO Harden the local API routes. Only allow ton-hub to do that.
 	# The bearer API routes are for others to use.
 	# Harden by using client password strategy instead of local strategy?
-	if !rt.auth or rt.custom then app[rt.verb] "/api#{rt.path}", rt.fn
-	if rt.local then confRoute rt, "local"
-	if rt.bearer then confRoute rt, "bearer"
-	
+	if !rt.auth then app[rt.verb] "/api#{rt.path}", rt.fn
+	else app[rt.verb] "/api#{rt.path}", [
+		ensure.ensureLoggedIn "/login"
+		rt.fn
+	]
+
 app.all "*", (req, res) ->
 	res.sendFile "index.html", opt
 

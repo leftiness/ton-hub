@@ -5,9 +5,6 @@ route =
 	verb: "get"
 	path: "/bacon"
 	auth: true
-	local: true
-	bearer: true
-	custom: false
 	fn: (req, res) ->
 		query =
 			type: "all-filler"
