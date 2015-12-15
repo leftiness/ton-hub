@@ -16,7 +16,7 @@ route =
 						info.message
 				return res.status(401).json json
 			else
-				return res.status(200).json json
+				return res.status(200).send()
 		return auth req, res, next
 
 module.exports = route
