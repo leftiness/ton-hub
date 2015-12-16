@@ -46,22 +46,6 @@ Guess I'll probably commit when I have the auth working with stubbed db stuff.
 The real db implementation will come later.
 ###
 
-###TODO
-Still have to implement a protected resource like this.
-
-https://github.com/jaredhanson/oauth2orize/blob/master/examples/express2/user.js
-
-And this
-
-app.get "/api/userinfo", user.info
-
-Notice how the function (req, res) is an array. Apparently you can pass an array
-of functions to express, and it will just go through them one at a time. I guess
-if one of them fails, it won't continue going on to the next one. So, if the
-passport req/res function fails, it won't go on to the req/res function for
-returning the protected resource.
-###
-
 routes.forEach (rt) ->
 	# TODO Harden the local API routes. Only allow ton-hub to do that.
 	# The bearer API routes are for others to use.
