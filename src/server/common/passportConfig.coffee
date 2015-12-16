@@ -34,6 +34,11 @@ passport.use new ClientPasswordStrategy (clientID, clientSecret, done) ->
 
 passport.use new BearerStrategy (accessToken, done) ->
 	db.accessTokens.find accessToken, (err, token) ->
+		### TODO
+		When !token, invalidate the token associated with the user if the user
+		has an active token. Consider logging events like this or even sending
+		an email to the user. "Someone tried to pretend to be you."
+		###
 		if err then	return done err, false, { message: generic }
 		else if !token then return done null, false, { message: credentials }
 		else db.users.find token.userID, (err, user) ->
