@@ -8,7 +8,6 @@ session = require "express-session"
 ensure = require "connect-ensure-login"
 morgan = require "morgan"
 
-auth = require "./common/AuthService.js"
 config = require "../config.json"
 routes = require "./routes/index.js"
 
