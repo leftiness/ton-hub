@@ -5,7 +5,6 @@ bodyParser = require "body-parser"
 cookieParser = require "cookie-parser"
 passport = require "passport"
 session = require "express-session"
-ensure = require "connect-ensure-login"
 morgan = require "morgan"
 
 config = require "../config.json"
@@ -46,14 +45,9 @@ The real db implementation will come later.
 ###
 
 routes.forEach (rt) ->
-	# TODO Harden the local API routes. Only allow ton-hub to do that.
-	# The bearer API routes are for others to use.
-	# Harden by using client password strategy instead of local strategy?
-	if !rt.auth then app[rt.verb] "/api#{rt.path}", rt.fn
-	else app[rt.verb] "/api#{rt.path}", [
-		ensure.ensureLoggedIn "/login"
-		rt.fn
-	]
+	auth = passport.authenticate "bearer", { session: false }
+	middleware = if !rt.auth then rt.fn else [ rt.fn, auth ]
+	app[rt.verb] "/api#{rt.path}", middleware
 
 app.all "*", (req, res) ->
 	res.sendFile "index.html", opt
