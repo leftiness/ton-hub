@@ -2,8 +2,8 @@ auth = require "../../common/AuthService.js"
 
 routes =
 	verb: "post"
-	path: "/client/token"
-	auth: true
+	path: "/token"
+	auth: false
 	fn: auth.token
 
 module.exports = routes
