@@ -28,16 +28,6 @@ LoginService = ($state, $mdToast, Restangular, SettingsService) ->
 		rest.post(json).then okLogin, koLogin
 	self.logout = ->
 		self.user = {} #TODO Stubbed. Have to tell the serer to invalidate session.
-	self.signup = (json) ->
-		rest = Restangular.all "signup"
-		okSignup = (res) ->
-			self.login json
-		koSignup = (res) ->
-			toast = $mdToast.simple()
-				.content "Failed to sign up. Reason: #{res.data.reason}"
-				.position "top right"
-			$mdToast.show toast
-		rest.post(json).then okSignup, koSignup
 	self
 
 LoginService.$inject = ["$state", "$mdToast", "Restangular", "SettingsService"];

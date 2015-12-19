@@ -1,11 +1,11 @@
-SignupController = (LoginService) ->
+SignupController = (SignupService) ->
 	"use strict"
 	self = this
 	self.user = {}
 	self.signup = ->
-		LoginService.signup self.user
+		SignupService.signup self.user
 	self
 
-SignupController.$inject = ["LoginService"]
+SignupController.$inject = ["SignupService"]
 
 module.exports = SignupController
