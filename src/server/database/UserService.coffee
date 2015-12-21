@@ -16,7 +16,7 @@ users = [
 service =
 	find: (id, done) ->
 		for user in users
-			if user.id == id then return done null, users
+			if user.id == id then return done null, user
 		return done null, null
 	findByUsername: (username, done) ->
 		for user in users
