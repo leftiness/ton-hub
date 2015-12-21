@@ -9,6 +9,7 @@ morgan = require "morgan"
 
 config = require "../config.json"
 routes = require "./routes/index.js"
+exceptionHandler = require "./common/ExceptionHandler.js"
 
 require "./common/passportConfig.js"
 
@@ -51,6 +52,8 @@ routes.forEach (rt) ->
 
 app.all "*", (req, res) ->
 	res.sendFile "index.html", opt
+
+app.use exceptionHandler
 
 app.listen (port), ->
 	console.log "All systems are go! Port: #{port}"
