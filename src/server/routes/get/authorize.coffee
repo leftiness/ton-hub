@@ -6,7 +6,6 @@ db = require "../../database/index.js"
 routes =
 	verb: "get"
 	path: "/authorize"
-	auth: false
 	fn: [
 		ensure.ensureLoggedIn "/login"
 		auth.authorization (clientID, redirectURI, done) ->

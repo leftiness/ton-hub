@@ -1,7 +1,6 @@
 route =
 	verb: "get"
 	path: "/teapot"
-	auth: false
 	fn: (req, res) ->
 		res.status(418).send """
 			<html>
