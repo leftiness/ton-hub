@@ -1,9 +1,9 @@
 oauth2 = require "oauth2orize"
 passport = require "passport"
 ensure = require "connect-ensure-login"
+uuid = require "node-uuid"
 
 db = require "../database/index.js"
-uuid = require "./UuidFactory.js"
 
 server = oauth2.createServer()
 
@@ -16,7 +16,7 @@ server.deserializeClient (id, done) ->
 		done null, client
 
 server.grant oauth2.grant.code (client, redirectURI, user, ares, done) ->
-	code = uuid.create 16
+	code = uuid.v4()
 	db.authorizationCodes.save code, client.id, redirectURI, user.id, (err) ->
 		if err then return done err
 		done null, code
@@ -29,7 +29,7 @@ server.exchange oauth2.exchange.code (client, code, redirectURI, done) ->
 		if redirectURI isnt authCode.redirectURI then return done null, false
 		db.authorizationCodes.delete code, (err) ->
 			if err then return done err
-			token = uuid.create 256
+			token = uuid.v4()
 			db.accessTokens.save token, authCode.userID, authCode.clientID, (err) ->
 				if err then return done err
 				done null, token
