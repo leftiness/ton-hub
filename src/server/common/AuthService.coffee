@@ -53,6 +53,7 @@ service.authorization = [
 			# The user can then accept or deny.
 			redirect = "/authorize?transactionID=#{id}&user=#{user}&client=#{client}"
 			res.redirect redirect
+		server.errorHandler { mode: "indirect" }
 	]
 
 service.decision = [
