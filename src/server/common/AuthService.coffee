@@ -46,12 +46,9 @@ service.authorization = [
 				done null, client, redirectURI
 		(req, res) ->
 			id = req.oauth2.transactionID
-			user = req.user
 			client = req.oauth2.client
-			# TODO Need to create /authorize module on front end.
-			# It'll tell an authenticated user "this app requests these permissions."
-			# The user can then accept or deny.
-			redirect = "/authorize?transactionID=#{id}&user=#{user}&client=#{client}"
+			# TODO Add oauth2 authorization scope parameter
+			redirect = "/authorize?id=#{id}&client=#{client.name}"
 			res.redirect redirect
 		server.errorHandler { mode: "indirect" }
 	]

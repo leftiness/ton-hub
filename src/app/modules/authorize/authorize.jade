@@ -1,2 +1,7 @@
 md-card(layout-margin layout-padding flex="")
-	md-card-content Authorize content
+	.md-title(flex="") {{auth.client}} requests the following privileges:
+	ul TODO add oauth2 privilege scopes
+		li scopes
+		li scopes
+	md-button(flex="" ng-click="auth.accept()") Accept
+	md-button(flex="" ng-click="auth.deny()") Deny

@@ -3,7 +3,7 @@ routes = ($stateProvider) ->
 	authorize =
 		name: "authorize"
 		parent: "main"
-		url: "^/authorize"
+		url: "^/authorize?id&client"
 		template: "<div authorize-view></div>"
 		data:
 			moduleClasses: "page"
