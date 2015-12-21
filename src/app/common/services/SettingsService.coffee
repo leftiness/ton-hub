@@ -4,6 +4,8 @@ SettingsService = ($mdToast, Restangular) ->
 	self.settings =
 		name: "Anon"
 	self.getSettings = ->
+		# TODO This will be updated when I write the /callback module.
+		# It needs to get called from that module and use a provided bearer token.
 		okGet = (res) ->
 			self.settings = res.data
 		koGet = (res) ->

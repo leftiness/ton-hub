@@ -6,7 +6,6 @@ LoginService = ($state, $mdToast, Restangular, SettingsService) ->
 		okLogin = (res) ->
 			self.user["username"] = json.username
 			$state.go "home"
-			SettingsService.getSettings()
 		koLogin = (res) ->
 			toast = $mdToast.simple()
 				.content "Failed to log in. Reason: #{res.data.reason}"
