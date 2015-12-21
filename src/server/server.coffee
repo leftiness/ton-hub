@@ -46,9 +46,7 @@ The real db implementation will come later.
 ###
 
 routes.forEach (rt) ->
-	auth = passport.authenticate "bearer", { session: false }
-	middleware = if !rt.auth then rt.fn else [ auth, rt.fn ]
-	app[rt.verb] "/api#{rt.path}", middleware
+	app[rt.verb] "/api#{rt.path}", rt.fn
 
 app.all "*", (req, res) ->
 	res.sendFile "index.html", opt

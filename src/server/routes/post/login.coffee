@@ -3,7 +3,6 @@ passport = require "passport"
 route =
 	verb: "post"
 	path: "/login"
-	auth: false
 	fn: (req, res, next) ->
 		auth = passport.authenticate "local", (err, user, info) ->
 			if err then return next err
