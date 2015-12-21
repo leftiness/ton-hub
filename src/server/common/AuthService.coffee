@@ -41,12 +41,8 @@ service.authorization = [
 		server.authorization (clientID, redirectURI, done) ->
 			db.clients.findByClientID clientID, (err, client) ->
 				if err then return done err
-				### TODO
-				WARNING: For security purposes, it is highly advisable to check that
-      	redirectURI provided by the client matches one registered with
-      	the server. For simplicity, this example does not. You have
-      	been warned.
-				###
+				if !client then return done null, false
+				if client.redirectURI != redirectURI then return done null, false
 				done null, client, redirectURI
 		(req, res) ->
 			id = req.oauth2.transactionID

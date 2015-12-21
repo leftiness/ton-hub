@@ -4,6 +4,7 @@ clients = [
 		name: "Samplr"
 		clientID: "abc123"
 		clientSecret: "ssh-secret"
+		redirectURI: "http://localhost:5000/cb"
 ]
 
 # TODO Obviously stubbed.
