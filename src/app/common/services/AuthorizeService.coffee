@@ -1,13 +1,13 @@
 service = (Restangular) ->
 	self = this
-	post = (id, cancel) ->
+	post = (id, accept) ->
 		rest = Restangular.all "decision"
 		json =
 			transaction_id: id
-			cancel: cancel
-		rest.post json
-	self.accept = (id) -> post id, false
-	self.deny = (id) -> post id, true
+			cancel: !accept
+		return rest.post json
+	self.accept = (id) -> post id, true
+	self.deny = (id) -> post id, false
 	self
 
 service.$inject = ["Restangular"];
