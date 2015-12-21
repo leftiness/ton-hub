@@ -34,34 +34,4 @@ server.exchange oauth2.exchange.code (client, code, redirectURI, done) ->
 				if err then return done err
 				done null, token
 
-service = {}
-
-service.authorization = [
-		ensure.ensureLoggedIn "/login"
-		server.authorization (clientID, redirectURI, done) ->
-			db.clients.findByClientID clientID, (err, client) ->
-				if err then return done err
-				if !client then return done null, false
-				if client.redirectURI != redirectURI then return done null, false
-				done null, client, redirectURI
-		(req, res) ->
-			id = req.oauth2.transactionID
-			client = req.oauth2.client
-			# TODO Add oauth2 authorization scope parameter
-			redirect = "/authorize?id=#{id}&client=#{client.name}"
-			res.redirect redirect
-		server.errorHandler { mode: "indirect" }
-	]
-
-service.decision = [
-		ensure.ensureLoggedIn "/login"
-		server.decision()
-	]
-
-service.token = [
-	passport.authenticate "oauth2-client-pasword", { session: false }
-	server.token()
-	server.errorHandler()
-]
-
-module.exports = service
+module.exports = server
