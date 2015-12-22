@@ -5,7 +5,7 @@ routes =
 	verb: "post"
 	path: "/token"
 	fn: [
-		passport.authenticate "oauth2-client-pasword", { session: false }
+		passport.authenticate "oauth2-client-password", { session: false }
 		auth.token()
 		auth.errorHandler()
 	]
