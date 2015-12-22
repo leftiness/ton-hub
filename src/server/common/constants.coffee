@@ -1,4 +1,4 @@
 constants =
-	bacon: "https://baconipsum.com/api"
+	hub_url: "http://localhost:5000"
 
 module.exports = constants
