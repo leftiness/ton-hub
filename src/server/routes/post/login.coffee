@@ -15,7 +15,7 @@ route =
 				redir = req.session?.returnTo
 				if err then return next err
 				else if redir then return res.redirect redir
-				else return res.status(200).send()
+				else return res.status(200).json { data: state: "home" }
 		return auth req, res, next
 
 module.exports = route

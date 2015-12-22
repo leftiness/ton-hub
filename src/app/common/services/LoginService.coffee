@@ -5,6 +5,9 @@ LoginService = ($state, $mdToast, Restangular, SettingsService) ->
 		rest = Restangular.all "login"
 		okLogin = (res) ->
 			self.user["username"] = json.username
+			state = res.data?.state || "home"
+			params = res.data?.params || {}
+			$state.go state, params
 		koLogin = (res) ->
 			toast = $mdToast.simple()
 				.content "Failed to log in. Reason: #{res.data.reason}"
