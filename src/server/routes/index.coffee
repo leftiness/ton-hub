@@ -4,6 +4,7 @@ routes = [
 	require "./get/bacon.js"
 	require "./get/settings.js"
 	require "./get/authorize.js"
+	require "./get/callback.js"
 	require "./post/settings.js"
 	require "./post/signup.js"
 	require "./post/decision.js"
