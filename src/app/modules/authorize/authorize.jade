@@ -5,5 +5,6 @@ md-card(layout-margin layout-padding flex="")
 		li scopes
 	form(action="/api/decision" method="post" target="_top")
 			input(name="transaction_id" value="{{auth.id}}" ng-hide="true")
-			input(type="submit" value="Allow" id="allow")
-			input(type="submit" value="Deny" name="cancel" id="deny")
+			div(layout="row" layout-align-gt-sm="end center" flex="")
+				md-button.md-raised.md-primary(flex="") Allow
+				md-button.md-raised.md-primary(name="cancel" value="deny" flex="") Deny
