@@ -3,5 +3,7 @@ md-card(layout-margin layout-padding flex="")
 	ul TODO add oauth2 privilege scopes
 		li scopes
 		li scopes
-	md-button(flex="" ng-click="auth.accept()") Accept
-	md-button(flex="" ng-click="auth.deny()") Deny
+	form(action="/api/decision" method="post" target="_top")
+			input(name="transaction_id" value="{{auth.id}}" ng-hide="true")
+			input(type="submit" value="Allow" id="allow")
+			input(type="submit" value="Deny" name="cancel" id="deny")
