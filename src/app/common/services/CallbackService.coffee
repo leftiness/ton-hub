@@ -1,11 +1,11 @@
-service = ($mdToast, Restangular, TokenService, SettingsService) ->
+service = ($state, $mdToast, Restangular, UserService, SettingsService) ->
 	self = this
 	self.callback = (code) ->
 		okCallback = (res) ->
 			token = res.access_token
 			type = res.token_type
 			if type is "Bearer"
-				TokenService.token token
+				UserService.user.token = token
 				SettingsService.getSettings()
 			else
 				note = "Token type not recognized. Authorization failed. Type: #{type}"
@@ -22,9 +22,10 @@ service = ($mdToast, Restangular, TokenService, SettingsService) ->
 	self
 
 service.$inject = [
+	"$state"
 	"$mdToast"
 	"Restangular"
-	"TokenService"
+	"UserService"
 	"SettingsService"
 ]
 

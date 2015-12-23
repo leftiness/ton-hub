@@ -1,10 +1,9 @@
-LoginService = ($state, $mdToast, Restangular, SettingsService) ->
+LoginService = ($state, $mdToast, Restangular, SettingsService, UserService) ->
 	self = this
-	self.user = {}
 	self.login = (json) ->
 		rest = Restangular.all "login"
 		okLogin = (res) ->
-			self.user["username"] = json.username
+			UserService.user.username = json.username
 			state = res.data?.state || "home"
 			params = res.data?.params || {}
 			$state.go state, params
@@ -15,7 +14,7 @@ LoginService = ($state, $mdToast, Restangular, SettingsService) ->
 			$mdToast.show toast
 		rest.post(json).then okLogin, koLogin
 	self.logout = ->
-		self.user = {} #TODO Stubbed. Have to tell the serer to invalidate session.
+		UserService.user = {} #TODO Stubbed. Have to tell the serer to invalidate session.
 	self
 
 LoginService.$inject = [
@@ -23,6 +22,7 @@ LoginService.$inject = [
 	"$mdToast"
 	"Restangular"
 	"SettingsService"
+	"UserService"
 ]
 
 module.exports = LoginService

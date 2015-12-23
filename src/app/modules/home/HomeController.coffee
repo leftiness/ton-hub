@@ -1,7 +1,7 @@
-HomeCtrl = (LoginService, LoadingService) ->
+HomeCtrl = (UserService, LoadingService) ->
 	"use strict"
 	self = this
-	self.login = LoginService
+	self.user = UserService
 	self.startLoading = ->
 		# Obviously this function should be removed. It's just a demo.
 		LoadingService.start()
@@ -10,6 +10,6 @@ HomeCtrl = (LoginService, LoadingService) ->
 		LoadingService.stop()
 	self
 
-HomeCtrl.$inject = ["LoginService", "LoadingService"]
+HomeCtrl.$inject = ["UserService", "LoadingService"]
 
 module.exports = HomeCtrl

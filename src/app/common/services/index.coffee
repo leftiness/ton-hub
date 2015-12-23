@@ -5,4 +5,4 @@ module.exports = angular.module "common.services", []
 	.service "ActionsService", require "./ActionsService.coffee"
 	.service "SettingsService", require "./SettingsService.coffee"
 	.service "CallbackService", require "./CallbackService.coffee"
-	.service "TokenService", require "./TokenService.coffee"
+	.service "UserService", require "./UserService.coffee"

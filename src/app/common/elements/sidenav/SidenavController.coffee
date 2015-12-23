@@ -1,4 +1,4 @@
-SidenavCtrl = ($mdMedia, $mdSidenav, $state, LoginService, SettingsService) ->
+SidenavCtrl = ($mdMedia, $mdSidenav, $state, UserService, SettingsService) ->
 	"use strict"
 	self = this
 	self.items = [
@@ -14,10 +14,10 @@ SidenavCtrl = ($mdMedia, $mdSidenav, $state, LoginService, SettingsService) ->
 	]
 	self.$mdMedia = $mdMedia
 	self.$mdSidenav = $mdSidenav
-	self.login = LoginService
+	self.user = UserService
 	self.set = SettingsService
 	self.clickSettingsButton = ->
-		user = LoginService.user
+		user = UserService.user
 		if user.username
 			params =
 				id: user.id
@@ -32,7 +32,7 @@ SidenavCtrl.$inject = [
 	"$mdMedia"
 	"$mdSidenav"
 	"$state"
-	"LoginService"
+	"UserService"
 	"SettingsService"
 ]
 

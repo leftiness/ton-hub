@@ -1,10 +1,10 @@
-ActionsCtrl = ($scope, $mdMedia, $timeout, ActionsService, LoginService) ->
+ActionsCtrl = ($scope, $mdMedia, $timeout, ActionsService, UserService) ->
 	"use strict"
 	self = this
 	self.open = false
 	self.tooltip = false
 	self.service = ActionsService
-	self.login = LoginService
+	self.user = UserService
 	self.do = (action) ->
 		action.callback()
 	$scope.$watch (-> self.open), (res) ->
@@ -17,7 +17,7 @@ ActionsCtrl.$inject = [
 	"$mdMedia"
 	"$timeout"
 	"ActionsService"
-	"LoginService"
+	"UserService"
 ]
 
 module.exports = ActionsCtrl
