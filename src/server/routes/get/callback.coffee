@@ -1,7 +1,7 @@
 request = require "request"
 
 url = require("../../common/constants.js").hub_url
-messages = require "../../common/messages.js"
+secrets = require "../../common/secrets.js"
 
 ### TODO
 Stubbed. So close to done. All that's left is taking this auth code and
@@ -11,29 +11,22 @@ params. Send that to POST /api/token, and I get an access token.
 
 routes =
 	verb: "get"
-	path: "/callback"
-	fn: (req, res) ->
-		code = req.query?.code
-		redirect = req.query?.redirect
+	path: "/callback/:code"
+	fn: (req, res, next) ->
+		code = req.params?.code
 		conf =
 			method: "POST"
 			uri: "#{url}/api/token"
-			postData: _ =
+			json:
 				grant_type: "authorization_code"
 				code: code
-				redirect_uri: redirect
-				client_id: "ton-hub"
-				client_secret: "secret"
-		# TODO Should get id and secret from a secrets file which isn't published.
+				client_id: secrets.oauth2.client_id
+				client_secret: secrets.oauth2.client_secret
+				redirect_uri: secrets.oauth2.redirect_uri
 		# TODO Not sure how refresh tokens will work with this...
 		request conf, (err, response, body) ->
-			if response.statusCode is 200
-				console.log "rekt" # TODO Stubbed. Should send token. Etc.
-				res.status(200).json {}
-			else if response.statusCode is 401
-				res.status(401).json { reason: response.body }
-			else res.status(500).send() # TODO Stubbed. Should have reason.
-
-
+			status = response.statusCode
+			if err then return next err
+			else res.status(status).json body
 
 module.exports = routes

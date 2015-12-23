@@ -9,6 +9,7 @@ module.exports = angular.module "modules", [
 		require("./settings/index.coffee").name
 		require("./authorize/index.coffee").name
 		require("./error/index.coffee").name
+		require("./callback/index.coffee").name
 	]
 	.config require "./mainRoutes.coffee"
 	.controller "MainCtrl", require "./MainController.coffee"
