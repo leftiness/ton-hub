@@ -6,9 +6,9 @@ md-toolbar.md-whiteframe-1dp.md-toolbar-tools(layout="row")
 	h2(layout-margin layout-padding) {{pageTitle}}
 	span(flex="")
 	md-button.md-icon-button(aria-label="[Logout]" ui-sref="login"
-		ng-click="header.logout()" ng-show="!!header.user.user.username")
+		ng-click="header.logout()" ng-show="!!header.user.user.token")
 		md-icon(md-font-icon="fa fa-power-off fa-lg")
 	md-button.md-icon-button(ui-sref="login" aria-label="[Login]"
-		ng-show="!!!header.user.user.username"
+		ng-show="!!!header.user.user.token"
 		)
 		md-icon(md-font-icon="fa fa-key fa-lg")

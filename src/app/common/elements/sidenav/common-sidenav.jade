@@ -17,7 +17,7 @@ md-sidenav.md-sidenav-left.md-whiteframe-1dp(layout="column"
 					md-item-content(layout="row" layout-align="start center")
 						.md-tile-content {{item.name}}
 	md-button(layout="row" layout-margin layout-padding ui-sref="settings"
-		ng-show="!!nav.user.user.username"
+		ng-show="!!nav.user.user.token"
 		ng-click="nav.$mdSidenav('sidenav').close()"
 		)
 		span(layout="row" layout-align="start center") Settings

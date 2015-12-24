@@ -8,10 +8,10 @@ md-fab-speed-dial.md-fling#actions(ng-show="hasActions" md-direction="up"
 		div(ng-repeat="action in actions.service.actions")
 			md-button.md-fab.md-raised.md-mini.md-primary(
 				aria-label="[{{action.name}}]" ng-click="actions.do(action)"
-				ng-hide="action.user && !!!actions.user.user.username"
+				ng-hide="action.user && !!!actions.user.user.token"
 				)
 				md-tooltip(md-direction="left" md-visible="actions.tooltip"
-					ng-hide="action.user && !!!actions.user.user.username"
+					ng-hide="action.user && !!!actions.user.user.token"
 					)
 					div {{action.name}}
 				md-icon(md-font-icon="fa {{action.icon}} fa-lg")
