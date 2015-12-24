@@ -8,7 +8,7 @@ routes = ($stateProvider) ->
 		data:
 			moduleClasses: "page"
 			pageClasses: "callback"
-			pageTitle: "Callback"
+			pageTitle: ""
 			pageDescription: "Meta Description goes here"
 
 	$stateProvider.state callback
