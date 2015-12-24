@@ -13,6 +13,7 @@ route =
 				return res.status(401).json json
 			else req.logIn user, (err) ->
 				redir = req.session?.returnTo
+				if redir then delete req.session.returnTo
 				if err then return next err
 				else if redir then return res.redirect redir
 				else return res.status(200).json { data: state: "home" }
