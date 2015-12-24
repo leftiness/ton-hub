@@ -1,11 +1,14 @@
-LoginCtrl = (LoginService) ->
+LoginCtrl = ($stateParams, $mdToast) ->
 	"use strict"
 	self = this
-	self.user = {}
-	self.login = ->
-		LoginService.login self.user
+	err = $stateParams.error
+	if err
+		toast = $mdToast.simple()
+			.content "Failed to login. Reason: #{err}"
+			.position "top right"
+		$mdToast.show toast
 	self
 
-LoginCtrl.$inject = ["LoginService"]
+LoginCtrl.$inject = ["$stateParams", "$mdToast"]
 
 module.exports = LoginCtrl

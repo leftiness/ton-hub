@@ -1,12 +1,14 @@
 md-card(layout="column" layout-margin layout-padding flex="")
 	.md-title(flex="") Welcome back!
-	form(name="form" ng-submit="form.$valid && login.login()")
+	form(action="/api/login" method="post" target="_top" 
+		ng-submit="form.$valid"
+		)
 		md-input-container(flex="")
 			label Username
-			input(ng-model="login.user.username" ng-required="true")
+			input(name="username" ng-required="true")
 		md-input-container(flex="")
 			label Password
-			input(ng-model="login.user.password" type="password" ng-required="true")
+			input(name="password" type="password" ng-required="true")
 		span(layout="row" layout-sm="column" flex="")
 			md-button.md-raised.md-primary(type="submit" flex="") Log in
 	div(layout="row" layout-align-gt-sm="end center" flex="")

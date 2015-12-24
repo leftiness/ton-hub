@@ -3,7 +3,7 @@ loginRoutes = ($stateProvider) ->
 	login =
 		name: "login"
 		parent: "main"
-		url: "^/login"
+		url: "^/login?error"
 		template: "<div login-view></div>"
 		data:
 			moduleClasses: "page"
