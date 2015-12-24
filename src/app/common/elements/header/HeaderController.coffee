@@ -4,7 +4,7 @@ HeaderCtrl = ($mdSidenav, $mdMedia, UserService, LogoutService) ->
 	self.$mdSidenav = $mdSidenav
 	self.$mdMedia = $mdMedia
 	self.user = UserService
-	self.logout = LogoutService.logout()
+	self.logout = LogoutService.logout
 	self
 
 HeaderCtrl.$inject = ["$mdSidenav", "$mdMedia", "UserService", "LogoutService"]
