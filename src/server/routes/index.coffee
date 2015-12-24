@@ -8,6 +8,7 @@ routes = [
 	require "./post/signup.js"
 	require "./post/decision.js"
 	require "./post/token.js"
+	require "./get/logout.js"
 ]
 
 module.exports = routes

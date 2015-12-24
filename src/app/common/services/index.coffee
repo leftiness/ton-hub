@@ -6,3 +6,4 @@ module.exports = angular.module "common.services", []
 	.service "SettingsService", require "./SettingsService.coffee"
 	.service "CallbackService", require "./CallbackService.coffee"
 	.service "UserService", require "./UserService.coffee"
+	.service "LogoutService", require "./LogoutService.coffee"
