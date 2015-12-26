@@ -1,0 +1,10 @@
+{
+  "port": "5000",
+  "secret": {
+    "oauth2": {
+      "client_id": "BestApp",
+      "client_secret": "verysecret",
+      "redirect_uri": "http://www.bestapp.com/callback"
+    }
+  }
+}

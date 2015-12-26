@@ -1,7 +1,7 @@
 request = require "request"
 
 url = require("../../common/constants.js").hub_url
-secrets = require "../../common/secrets.js"
+config = require "../../../config.json"
 
 ### TODO
 Stubbed. So close to done. All that's left is taking this auth code and
@@ -20,9 +20,9 @@ routes =
 			json:
 				grant_type: "authorization_code"
 				code: code
-				client_id: secrets.oauth2.client_id
-				client_secret: secrets.oauth2.client_secret
-				redirect_uri: secrets.oauth2.redirect_uri
+				client_id: config.secret.oauth2.client_id
+				client_secret: config.secret.oauth2.client_secret
+				redirect_uri: config.secret.oauth2.redirect_uri
 		# TODO Not sure how refresh tokens will work with this...
 		request conf, (err, response, body) ->
 			status = response.statusCode

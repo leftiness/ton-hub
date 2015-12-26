@@ -1,6 +1,6 @@
 passport = require "passport"
 
-secrets = require "../../common/secrets.js"
+config = require "../../../config.json"
 
 route =
 	verb: "post"
@@ -19,8 +19,8 @@ route =
 				else if returnTo then return res.redirect returnTo
 				else
 					# TODO oauth2 scope stuff
-					client = secrets.oauth2.client_id
-					redirect = encodeURIComponent secrets.oauth2.redirect_uri
+					client = config.secret.oauth2.client_id
+					redirect = encodeURIComponent config.secret.oauth2.redirect_uri
 					url = "/api/authorize?response_type=code&client_id=#{client}"
 					url += "&redirect_uri=#{redirect}&scope=foo"
 					return res.redirect url
