@@ -50,12 +50,6 @@ passport.use new BearerStrategy (accessToken, done) ->
 			When !user, invalidate this access token. Remember that there were
 			other security tips in the oauth2 specification.
 			###
-			### TODO
-			When a token is sent that's invalid, the oauth2 specification says that
-			there are certain messages that are supposed to be sent back. there are
-			standard steps for this. Look them up. Is passport/oauth2orize doing that
-			already, or do I have to that myself?
-			###
 			if err then return done err, false, { message: generic }
 			else if !user then return done null, false, { message: credentials }
 			else return done null, user, { scope: "*" }
