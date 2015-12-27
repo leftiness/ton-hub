@@ -8,6 +8,7 @@ messages = require "./messages.js"
 
 generic = messages.error.generic
 credentials = messages.invalid.credentials
+token = messages.invalid.token
 
 passport.serializeUser (user, done) ->
 	return done null, user.id
@@ -34,22 +35,13 @@ passport.use new ClientPasswordStrategy (clientID, clientSecret, done) ->
 
 passport.use new BearerStrategy (accessToken, done) ->
 	db.accessTokens.find accessToken, (err, token) ->
-		### TODO
-		When !token, invalidate the token associated with the user if the user
-		has an active token. Consider logging events like this or even sending
-		an email to the user. "Someone tried to pretend to be you."
-		###
 		if err then	return done err, false, { message: generic }
-		else if !token then return done null, false, { message: credentials }
+		else if !token then return done null, false, { message: token }
 		else db.users.find token.userID, (err, user) ->
 			### TODO
 			To keep this example simple, restricted scopes are not implemented
 			and this is just for illustrative purposes.
 			###
-			### TODO
-			When !user, invalidate this access token. Remember that there were
-			other security tips in the oauth2 specification.
-			###
 			if err then return done err, false, { message: generic }
-			else if !user then return done null, false, { message: credentials }
+			else if !user then return done null, false, { message: token }
 			else return done null, user, { scope: "*" }
