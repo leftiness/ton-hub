@@ -1,8 +1,7 @@
 ctrl = ($stateParams, CallbackService) ->
 	"use strict"
 	self = this
-	code = $stateParams.code
-	CallbackService.callback code
+	CallbackService.callback $stateParams
 	return self
 
 ctrl.$inject = ["$stateParams", "CallbackService"]

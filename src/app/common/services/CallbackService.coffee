@@ -1,6 +1,6 @@
 service = ($state, $mdToast, Restangular, UserService, SettingsService) ->
 	self = this
-	self.callback = (code) ->
+	self.callback = (params) ->
 		okCallback = (res) ->
 			token = res.access_token
 			type = res.token_type
@@ -18,7 +18,7 @@ service = ($state, $mdToast, Restangular, UserService, SettingsService) ->
 				.content "Failed callback. Reason: #{res.data.reason}"
 				.position "top right"
 			$mdToast.show toast
-		Restangular.one("callback", code).get().then okCallback, koCallback
+		Restangular.all("callback").post(params).then okCallback, koCallback
 	self
 
 service.$inject = [

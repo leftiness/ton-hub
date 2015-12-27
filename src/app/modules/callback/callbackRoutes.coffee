@@ -3,7 +3,7 @@ routes = ($stateProvider) ->
 	callback =
 		name: "callback"
 		parent: "main"
-		url: "^/callback?code"
+		url: "^/callback?code?error?error_description"
 		template: "<div callback-view></div>"
 		data:
 			moduleClasses: "page"

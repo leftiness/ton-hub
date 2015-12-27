@@ -3,17 +3,17 @@ request = require "request"
 url = require("../../common/constants.js").hub_url
 config = require "../../../config.json"
 
-### TODO
-Stubbed. So close to done. All that's left is taking this auth code and
-providing it along with client id, client secret, and maybe some other
-params. Send that to POST /api/token, and I get an access token.
-###
-
 routes =
-	verb: "get"
-	path: "/callback/:code"
+	verb: "post"
+	path: "/callback"
 	fn: (req, res, next) ->
-		code = req.params?.code
+		err = req.body?.error
+		desc = req.body?.error_description
+		if err or desc
+			json =
+					reason: err
+			return res.status(400).json json
+		code = req.body.code
 		conf =
 			method: "POST"
 			uri: "#{url}/api/token"
@@ -23,7 +23,6 @@ routes =
 				client_id: config.secret.oauth2.client_id
 				client_secret: config.secret.oauth2.client_secret
 				redirect_uri: config.secret.oauth2.redirect_uri
-		# TODO Not sure how refresh tokens will work with this...
 		request conf, (err, response, body) ->
 			status = response.statusCode
 			if err then return next err
