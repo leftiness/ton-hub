@@ -2,6 +2,7 @@ request = require "request"
 
 url = require("../../common/constants.js").hub_url
 config = require "../../../config.json"
+messages = require "../../common/messages.js"
 
 routes =
 	verb: "post"
@@ -14,6 +15,13 @@ routes =
 					reason: err
 			return res.status(400).json json
 		code = req.body.code
+		state = req.body.state
+		cookie = req.signedCookies["ton-state"]
+		if cookie then res.clearCookie "ton-state"
+		if !state or !cookie or (state isnt cookie)
+			json =
+				reason: messages.invalid.state
+			return res.status(400).json json
 		conf =
 			method: "POST"
 			uri: "#{url}/api/token"

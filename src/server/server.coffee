@@ -15,8 +15,6 @@ require "./common/passportConfig.js"
 
 app = express()
 port = process.env.PORT || config.port
-opt =
-	root: __dirname
 # TODO Not keyboard cat... but what should it be? What are these options anyway?
 sessionConf =
 	secret: "keyboard cat"
@@ -28,11 +26,11 @@ app.use morgan "dev"
 # purposely not designed for a production environment. It will leak memory
 # under most conditions, does not scale past a single process, and is meant
 # for debugging and developing.
-app.use session sessionConf
-app.use express.static __dirname
 app.use bodyParser.json()
 app.use bodyParser.urlencoded { extended: false }
-app.use cookieParser()
+app.use cookieParser(config.secret.cookie_secret)
+app.use session sessionConf
+app.use express.static __dirname
 app.use passport.initialize()
 app.use passport.session()
 
@@ -50,7 +48,7 @@ routes.forEach (rt) ->
 	app[rt.verb] "/api#{rt.path}", rt.fn
 
 app.all "*", (req, res) ->
-	res.sendFile "index.html", opt
+	res.sendFile "index.html", { root: __dirname }
 
 app.use exceptionHandler
 

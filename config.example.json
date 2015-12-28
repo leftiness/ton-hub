@@ -5,6 +5,7 @@
       "client_id": "BestApp",
       "client_secret": "verysecret",
       "redirect_uri": "http://www.bestapp.com/callback"
-    }
+    },
+    "cookie_secret": "suchsecret"
   }
 }
