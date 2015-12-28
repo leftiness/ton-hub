@@ -1,5 +1,6 @@
 ensure = require "connect-ensure-login"
 oauth2 = require "oauth2orize"
+uuid = require "node-uuid"
 
 auth = require "../../common/AuthService.js"
 db = require "../../database/index.js"
@@ -26,6 +27,7 @@ routes =
 				type = "invalid_request"
 				return next new oauth2.AuthorizationError message, type
 			# TODO Add oauth2 authorization scope parameter
+			res.cookie "xsrf", uuid.v4()
 			res.redirect url
 		auth.errorHandler { mode: "indirect" }
 	]
