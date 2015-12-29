@@ -21,6 +21,9 @@ sessionConf =
 	resave: false
 	saveUninitialized: true
 
+app.set "view engine", "jade"
+app.set "views", "#{__dirname}/views"
+
 app.use morgan "dev"
 # TODO Warning The default server-side session storage, MemoryStore, is
 # purposely not designed for a production environment. It will leak memory
