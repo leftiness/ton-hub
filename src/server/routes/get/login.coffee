@@ -1,20 +1,15 @@
-uuid = require "node-uuid"
+xsrf = require "../../common/XsrfService.js"
 
 route =
 	verb: "get"
 	path: "/login"
 	fn: [
+		xsrf.set
 		(req, res) ->
-			xsrf = uuid.v4()
+			xsrf = req.getXsrf()
 			json =
 				error: req.query?.error
 				xsrf: xsrf
-			opts =
-				signed: true
-				httpOnly: true
-				maxAge: 300000
-				#secure: true #TODO Requires working HTTPS
-			res.cookie "xsrf", xsrf, opts
 			res.render "login", json
 	]
 
