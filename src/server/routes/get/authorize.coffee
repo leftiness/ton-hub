@@ -9,7 +9,7 @@ routes =
 	verb: "get"
 	path: "/authorize"
 	fn: [
-		ensure.ensureLoggedIn "/login"
+		ensure.ensureLoggedIn "/api/login"
 		auth.authorization (clientID, redirectURI, done) ->
 			db.clients.findByClientID clientID, (err, client) ->
 				if err then return done err

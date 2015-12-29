@@ -1,0 +1,44 @@
+html
+	head
+		link(rel="stylesheet" type="css" href="/picnic.css")
+		style.
+			.form-box {
+				margin: auto;
+				padding: 10px;
+				max-width: 400px;
+			}
+			.wide-button {
+				width: 100%;
+			}
+			.input-box {
+				margin: 10 10;
+			}
+			.help-link {
+				text-align: right;
+				font-size: small;
+			}
+			.error-box {
+				color: #ff4136;
+			}
+	body
+		form.form-box(action="/api/login" method="post" target="_top")
+			input(type="hidden" name="xsrf" value="#{xsrf}")
+			section
+				h2 Login
+			if error
+				section.error-box.
+					Error: #{error}
+			section.input-box
+				label(for="username") Username
+				input#name(type="text" name="username")
+			section.input-box
+				label(for="password") Password
+				input#password(type="password" name="password")				
+			section
+				button.wide-button(type="submit") Submit
+			section.help-link
+				a(href="/signup") Signup
+			section.help-link
+				a(href="/recover") Recover
+			section.help-link
+				a(href="/oauth2") What is this?
