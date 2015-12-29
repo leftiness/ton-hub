@@ -4,7 +4,7 @@ clients = [
 		name: "ton-hub"
 		clientID: "ton-hub"
 		clientSecret: "secret"
-		redirectURI: "http://localhost:5000/callback"
+		redirectURI: "http://localhost:5000/api/callback"
 	_ =
 		id: "2"
 		name: "Postman"

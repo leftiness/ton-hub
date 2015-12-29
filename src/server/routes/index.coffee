@@ -6,6 +6,7 @@ routes = [
 	require "./get/logout.js"
 	require "./get/login.js"
 	require "./get/confirm.js"
+	require "./get/callback.js"
 	require "./post/callback.js"
 	require "./post/settings.js"
 	require "./post/signup.js"
