@@ -10,6 +10,7 @@ morgan = require "morgan"
 config = require "../config.json"
 routes = require "./routes/index.js"
 exceptionHandler = require "./common/ExceptionHandler.js"
+tokenInterceptor = require "./common/TokenInterceptor.js"
 
 require "./common/passportConfig.js"
 
@@ -36,6 +37,7 @@ app.use session sessionConf
 app.use express.static __dirname
 app.use passport.initialize()
 app.use passport.session()
+app.use tokenInterceptor
 
 ###TODO
 Honestly not even sure if all of this stuff works. That's why I'm creating a
