@@ -57,7 +57,7 @@ A dollar sign ($) represents data that will be provided.
 
 #### RES 200
 
-> **Server:**  
+> **Server:**
 > Okay. You are authenticated. Here are your settings.
 
 ```json
