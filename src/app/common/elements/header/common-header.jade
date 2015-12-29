@@ -8,7 +8,7 @@ md-toolbar.md-whiteframe-1dp.md-toolbar-tools(layout="row")
 	md-button.md-icon-button(aria-label="[Logout]" ui-sref="login"
 		ng-click="header.logout()" ng-show="!!header.user.user.token")
 		md-icon(md-font-icon="fa fa-power-off fa-lg")
-	md-button.md-icon-button(ui-sref="login" aria-label="[Login]"
+	md-button.md-icon-button(ng-click="header.login()" aria-label="[Login]"
 		ng-show="!!!header.user.user.token"
 		)
 		md-icon(md-font-icon="fa fa-key fa-lg")
