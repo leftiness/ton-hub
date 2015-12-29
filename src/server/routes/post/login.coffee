@@ -26,7 +26,7 @@ route =
 						client = config.secret.oauth2.client_id
 						redirect = encodeURIComponent config.secret.oauth2.redirect_uri
 						state = uuid.v4()
-						url = "/api/confirm?response_type=code&client_id=#{client}"
+						url = "/api/authorize?response_type=code&client_id=#{client}"
 						url += "&redirect_uri=#{redirect}&scope=foo&state=#{state}"
 						opts =
 							signed: true

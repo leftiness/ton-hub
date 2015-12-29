@@ -1,0 +1,17 @@
+html
+	head
+		link(rel="stylesheet" type="css" href="/picnic.css")
+		link(rel="stylesheet" type="css" href="/dialog.css")
+	body
+		form.form-box(action="/api/decision" method="post" target="_top")
+			input(type="hidden" name="xsrf" value="#{xsrf}")
+			input(type="hidden" name="transaction_id" value="#{id}")
+			section
+				h2 Confirm
+			section
+				p Todo: oauth2 privilege scopes
+			section
+				button.half-button(type="submit") Accept
+				button.half-button(type="submit" name="cancel" value="deny") Deny
+			section.help-link
+				a(href="/oauth2") What is this?

@@ -19,8 +19,7 @@ routes =
 		(req, res, next) ->
 			id = req.oauth2.transactionID
 			client = req.oauth2.client
-			redirect = req.oauth2.redirectURI
-			url = "/authorize?id=#{id}&client=#{client.name}&redirect=#{redirect}"
+			url = "/api/confirm?id=#{id}&client=#{client.name}"
 			state = req.query.state
 			if !state
 				message = "Missing required parameter: state"

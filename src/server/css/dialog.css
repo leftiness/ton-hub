@@ -6,6 +6,10 @@
 .wide-button {
 	width: 100%;
 }
+.half-button {
+	width: 48%;
+	margin: 1%;
+}
 .input-box {
 	margin: 10 10;
 }
