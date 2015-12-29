@@ -1,25 +1,7 @@
 html
 	head
 		link(rel="stylesheet" type="css" href="/picnic.css")
-		style.
-			.form-box {
-				margin: auto;
-				padding: 10px;
-				max-width: 400px;
-			}
-			.wide-button {
-				width: 100%;
-			}
-			.input-box {
-				margin: 10 10;
-			}
-			.help-link {
-				text-align: right;
-				font-size: small;
-			}
-			.error-box {
-				color: #ff4136;
-			}
+		link(rel="stylesheet" type="css" href="/dialog.css")
 	body
 		form.form-box(action="/api/login" method="post" target="_top")
 			input(type="hidden" name="xsrf" value="#{xsrf}")
