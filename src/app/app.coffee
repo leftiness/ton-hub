@@ -1,6 +1,6 @@
 require "angular"
 
-module.exports = angular.module "ton-social", [
+module.exports = angular.module "ton-hub", [
 		require("./common/common.coffee").name
 		require("./modules/index.coffee").name
 	]

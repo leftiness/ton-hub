@@ -1,14 +1,14 @@
 {
-  "name": "ton-social",
+  "name": "ton-hub",
   "version": "0.0.1",
   "authors": [
     "Brandon Parmenter <leftiness@gmail.com>"
   ],
-  "description": "ton-social is a site!",
+  "description": "ton-hub is a site!",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leftines/ton-social"
+    "url": "https://github.com/leftines/ton-hub"
   },
   "private": true,
   "dependencies": {
