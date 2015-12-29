@@ -36,23 +36,23 @@ route =
 					redirect_uri: config.secret.oauth2.redirect_uri
 			request conf, (err, response, body) ->
 				if err then return next err
+				json = {}
+				err = body?.error
+				desc = body?.error_description
+				type = body?.token_type
+				token = body?.access_token
+				if err or desc or !token or !type
+					json.error = err || "invalid_request"
+					json.error_description = desc if desc?
 				else
-					err = body.error
-					desc = body.error_description
-					if err or desc
-						json =
-							error: err || "invalid_request"
-							error_description: desc
-					else
-						json =
-							token_type: body.token_type
+					json = { token_type: type }
 					opt =
 						signed: true
 						httpOnly: true
 						#secure: true #TODO requires https
-					res.cookie "access_token", body.access_token, opt
+					res.cookie "access_token", token, opt
 					res.cookie "token_type", body.token_type, opt
-					res.render "callback", json
+				res.render "callback", json
 	]
 
 module.exports = route
