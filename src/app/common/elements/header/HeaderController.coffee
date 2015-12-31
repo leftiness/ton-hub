@@ -11,6 +11,7 @@ HeaderCtrl = ($window, $mdSidenav, $mdMedia, UserService, LogoutService) ->
 		specs = "height=400,menubar=no,scrollbars=no,statusbar=no,titlebar=no"
 		specs += "toolbar=no,width=300"
 		$window.open url, name, specs
+		return true
 	self
 
 HeaderCtrl.$inject = [
