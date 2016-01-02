@@ -8,14 +8,14 @@ route =
 	verb: "get"
 	path: "/callback"
 	fn: [
-		(req, res) ->
+		(req, res, next) ->
 			err = req.query?.error
 			desc = req.query?.error_description
 			if err or desc
 				json =
 					error: err
 					error_description: desc
-				return res.render "callback", json
+				return next json
 			code = req.query?.code
 			state = req.query?.state
 			cookie = req.signedCookies["ton-state"]
@@ -24,7 +24,7 @@ route =
 				json =
 					error: "invalid_request"
 					error_description: messages.invalid.state
-				return res.render "callback", json
+				return next json
 			conf =
 				method: "POST"
 				uri: "#{url}/api/token"
@@ -36,23 +36,23 @@ route =
 					redirect_uri: config.secret.oauth2.redirect_uri
 			request conf, (err, response, body) ->
 				if err then return next err
-				json = {}
-				err = body?.error
+				error = body?.error
 				desc = body?.error_description
 				type = body?.token_type
 				token = body?.access_token
-				if err or desc or !token or !type
+				if error or desc or !token or !type
+					json = {}
 					json.error = err || "invalid_request"
 					json.error_description = desc if desc?
+					return next json
 				else
-					json = { token_type: type }
 					opt =
 						signed: true
 						httpOnly: true
 						#secure: true #TODO requires https
 					res.cookie "access_token", token, opt
-					res.cookie "token_type", body.token_type, opt
-				res.render "callback", json
+					res.cookie "token_type", type, opt
+				res.render "callback"
 	]
 
 module.exports = route
