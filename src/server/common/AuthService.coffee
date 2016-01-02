@@ -24,13 +24,18 @@ server.grant oauth2.grant.code (client, redirectURI, user, ares, done) ->
 server.exchange oauth2.exchange.code (client, code, redirectURI, done) ->
 	db.authorizationCodes.find code, (err, authCode) ->
 		if err then return done err
-		if authCode is undefined then return done null, false
+		if authCode is undefined
+			db.accessTokens.deleteByAuthCode authCode, (err) ->
+				if err then return done err
+				else return done null, false
 		if client.id isnt authCode.clientID then return done null, false
 		if redirectURI isnt authCode.redirectURI then return done null, false
 		db.authorizationCodes.delete code, (err) ->
 			if err then return done err
 			token = uuid.v4()
-			db.accessTokens.save token, authCode.userID, authCode.clientID, (err) ->
+			user = authCode.userID
+			client = authCode.clientID
+			db.accessTokens.save token, user, client, code (err) ->
 				if err then return done err
 				done null, token
 
