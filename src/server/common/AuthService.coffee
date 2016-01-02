@@ -35,7 +35,7 @@ server.exchange oauth2.exchange.code (client, code, redirectURI, done) ->
 			token = uuid.v4()
 			user = authCode.userID
 			client = authCode.clientID
-			db.accessTokens.save token, user, client, code (err) ->
+			db.accessTokens.save token, user, client, code, (err) ->
 				if err then return done err
 				done null, token
 
