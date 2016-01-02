@@ -48,7 +48,8 @@
 		"watch:css": "bash ./bin/watch-css.sh",
 		"watch:index": "bash ./bin/watch-index.sh",
 		"watch:js": "bash ./bin/watch-js.sh",
-		"watch:server": "bash ./bin/watch-server.sh"
+		"watch:server": "bash ./bin/watch-server.sh",
+		"watch:views": "bash ./bin/watch-views.sh"
 	},
 	"devDependencies": {
 		"bower": "^1.6.2",
