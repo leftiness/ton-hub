@@ -4,11 +4,13 @@ users = [
 		username: "bob"
 		password: "secret"
 		name: "Bob Smith"
+		email: "bobsmith@email.site"
 	_ =
 		id: "2"
 		username: "joe"
 		password: "password"
 		name: "Joe Davis"
+		email: "joe_the_man@bestemail.com"
 ]
 
 # TODO Obviously stubbed.
