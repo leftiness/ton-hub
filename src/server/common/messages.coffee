@@ -3,7 +3,7 @@ messages =
 		generic: "Server error"
 	invalid:
 		credentials: "Invalid credentials"
-		token: "Invalid token"
+		token: "Invalid access token"
 		state: "Invalid state"
 		xsrf: "Invalid XSRF token"
 
