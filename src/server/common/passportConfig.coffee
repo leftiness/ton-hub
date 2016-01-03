@@ -59,5 +59,7 @@ passport.use new BearerStrategy passReqToCallback, (req, accessToken, done) ->
 					expectedProof = hmac accessToken, secret
 					proof = req.body.proof
 					if !proof or proof isnt expectedProof
-						return done err, false, invalidProof
+						db.accessTokens.delete accessToken, (err) ->
+							if err then return done err, false, invalidProof
+							else return done err, false, invalidProof
 					else return done null, user, { scope: "*" }
