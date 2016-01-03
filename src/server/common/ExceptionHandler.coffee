@@ -12,8 +12,8 @@ handler = (err, req, res, next) ->
 		body: req.body
 		status: err.status
 		name: err.name
-		code: err.code
-		message: err.message
+		error: err.error || err.code
+		error_description: err.error_description || err.message
 	json =
 		data: prettyjson.render data, opts
 	log =
