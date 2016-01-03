@@ -10,5 +10,6 @@ messages =
 		password_confirm: "Invalid password confirmation"
 		email: "Invalid email"
 		username: "Invalid username"
+		name: "Invalid name"
 
 module.exports = messages
