@@ -1,19 +1,8 @@
-clients = [
-	_ =
-		id: "2"
-		name: "Postman"
-		clientID: "postman"
-		clientSecret: "e122da4e1f084ee28cb364bec5ad8e78" # "secret"
-		redirectURI: "https://www.getpostman.com/oauth2/callback"
-		salt: "b6ad41e9-ef5b-4d2d-af6b-a1bd559fb3c9"
-	_ =
-		id: "3"
-		name: "ton-account"
-		clientID: "ton-account"
-		clientSecret: "222c6d034aa1de1bb6ba3b999952764f" # "secret"
-		redirectURI: "http://localhost:5001/api/callback"
-		salt: "b1f6102c-cf20-438d-a292-635f425487f6"
-]
+uuid = require "node-uuid"
+
+crypto = require "../common/CryptoService.js"
+
+clients = []
 
 # TODO Obviously stubbed.
 
@@ -26,5 +15,27 @@ service =
 		for client in clients
 			if client.clientID == clientID then return done null, client
 		return done null, null
+	save: (clientID, name, clientSecret, redirectURI, done) ->
+		salt = uuid.v4();
+		json =
+			id: clients.length + 1
+			clientID: clientID
+			name: name
+			clientSecret: crypto.pbkdf2 clientSecret, salt
+			redirectURI: redirectURI
+			salt: salt
+		### TODO
+		Add records with "approved: false". I should approve clients before they
+		can actually access the API.
+		###
+		# TODO Check if record exists. If it does, return done(error)
+		clients.push json
+		return done null
+
+stub = (err) -> if err then console.log "error creating these clients"
+pmUrl = "https://www.getpostman.com/oauth2/callback"
+taUrl = "http://localhost:5001/api/callback"
+service.save "postman", "Postman", "secret", pmUrl, stub
+service.save "ton-account", "ton-account", "secret", taUrl, stub
 
 module.exports = service
