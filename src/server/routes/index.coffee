@@ -1,6 +1,5 @@
 routes = [
 	require "./get/authorize.js"
-	require "./get/callback.js"
 	require "./get/confirm.js"
 	require "./get/login.js"
 	require "./get/logout.js"

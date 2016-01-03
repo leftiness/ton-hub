@@ -52,9 +52,6 @@ The real db implementation will come later.
 routes.forEach (rt) ->
 	app[rt.verb] "/api#{rt.path}", rt.fn
 
-app.all "*", (req, res) ->
-	res.sendFile "index.html", { root: __dirname }
-
 app.use exceptionHandler
 
 app.listen (port), ->

@@ -1,16 +1,16 @@
 clients = [
 	_ =
-		id: "1"
-		name: "ton-hub"
-		clientID: "ton-hub"
-		clientSecret: "secret"
-		redirectURI: "http://localhost:5000/api/callback"
-	_ =
 		id: "2"
 		name: "Postman"
 		clientID: "postman"
 		clientSecret: "secret"
 		redirectURI: "https://www.getpostman.com/oauth2/callback"
+	_ =
+		id: "3"
+		name: "ton-account"
+		clientID: "ton-account"
+		clientSecret: "secret"
+		redirectURI: "http://localhost:5001/api/callback"
 ]
 
 # TODO Obviously stubbed.
