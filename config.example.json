@@ -2,5 +2,6 @@
 	"port": "5000",
 	"secret": {
 		"cookie_secret": "suchsecret"
-	}
+	},
+	"pbkdf2_iterations": 1000
 }
