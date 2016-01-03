@@ -2,7 +2,7 @@ passport = require "passport"
 LocalStrategy = require("passport-local").Strategy
 ClientPasswordStrategy = require("passport-oauth2-client-password").Strategy
 BearerStrategy = require("passport-http-bearer").Strategy
-hmac = require "crypto-js/hmac-sha256"
+crypto = require "crypto-js"
 
 db = require "../database/index.js"
 messages = require "./messages.js"
@@ -12,6 +12,14 @@ invalidCredentials = { message: messages.invalid.credentials }
 invalidToken = { message: messages.invalid.token }
 invalidProof = { message: messages.invalid.proof }
 passReqToCallback = { passReqToCallback: true }
+
+hmac = (accessToken, secret) ->
+	obj = crypto.HmacSHA256 accessToken, secret
+	return obj.toString()
+
+pbkdf2 = (password, salt) ->
+	obj = crypto.PBKDF2 password, salt, { hasher: crypto.algo.SHA256 }
+	return obj.toString()
 
 passport.serializeUser (user, done) ->
 	return done null, user.id
@@ -24,7 +32,7 @@ passport.use new LocalStrategy (username, password, done) ->
 	db.users.findByUsername username, (err, user) ->
 		if err then return done err, false, genericError
 		else if !user then return done null, false, invalidCredentials
-		else if user.password isnt password
+		else if user.password isnt (pbkdf2 password, user.salt)
 			return done null, false, invalidCredentials
 		else return done null, user
 
@@ -32,7 +40,7 @@ passport.use new ClientPasswordStrategy (clientID, clientSecret, done) ->
 	db.clients.findByClientID clientID, (err, client) ->
 		if err then return done err, false, genericError
 		else if !client then return done null, false, invalidCredentials
-		else if client.clientSecret isnt clientSecret
+		else if client.clientSecret isnt (pbkdf2 clientSecret, client.salt)
 			return done null, false, invalidCredentials
 		else return done null, client
 
@@ -50,15 +58,12 @@ passport.use new BearerStrategy passReqToCallback, (req, accessToken, done) ->
 			else db.clients.findByClientID token.clientID, (err, client) ->
 				if err then return done err, false, genericError
 				else
-					# TODO Secrets like passwords will be hashed in db somehow...
 					### TODO
 					Set a "dev" environment var to disable this app secret proof check
 					and therefore allow postman to make requests using just access token.
 					###
-					secret = client.clientSecret
-					expectedProof = hmac accessToken, secret
 					proof = req.body.proof
-					if !proof or proof isnt expectedProof
+					if !proof or proof isnt (hmac accessToken, client.clientSecret)
 						db.accessTokens.delete accessToken, (err) ->
 							if err then return done err, false, invalidProof
 							else return done err, false, invalidProof
