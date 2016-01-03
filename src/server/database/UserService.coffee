@@ -1,19 +1,8 @@
-users = [
-	_ =
-		id: "1"
-		username: "bob"
-		password: "4b4335301c98404d5a6f5f99814e47a2" # "secret"
-		name: "Bob Smith"
-		email: "bobsmith@email.site"
-		salt: "c5473218-bad9-4e7f-a80f-9b78589a4c76"
-	_ =
-		id: "2"
-		username: "joe"
-		password: "d7b814ab354bf0b8d703b45c254834a7" # "password"
-		name: "Joe Davis"
-		email: "joe_the_man@bestemail.com"
-		salt: "0186cb61-faab-4fd9-afce-d7f20464f0fc"
-]
+uuid = require "node-uuid"
+
+crypto = require "../common/CryptoService.js"
+
+users = []
 
 # TODO Obviously stubbed.
 
@@ -26,5 +15,21 @@ service =
 		for user in users
 			if user.username == username then return done null, user
 		return done null, null
+	save: (username, email, password, done) ->
+		salt = uuid.v4();
+		json =
+			id: users.length + 1
+			username: username
+			password: crypto.pbkdf2 password, salt
+			name: username
+			email: email
+			salt: salt
+		# TODO Check if username exists. If it does, return done(error)
+		users.push json
+		return done null
+
+stub = (err) -> if err then console.log "failed to create these users"
+service.save "bob", "bobsmith@email.site", "secret", stub
+service.save "joe", "joe_the_man@bestemail.com", "password", stub
 
 module.exports = service

@@ -7,5 +7,8 @@ messages =
 		state: "Invalid state"
 		xsrf: "Invalid XSRF token"
 		proof: "Invalid app secret proof"
+		password_confirm: "Invalid password confirmation"
+		email: "Invalid email"
+		username: "Invalid username"
 
 module.exports = messages
