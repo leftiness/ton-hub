@@ -24,10 +24,9 @@ server.grant oauth2.grant.code (client, redirectURI, user, ares, done) ->
 server.exchange oauth2.exchange.code (client, code, redirectURI, done) ->
 	db.authorizationCodes.find code, (err, authCode) ->
 		if err then return done err
-		if authCode is undefined
-			db.accessTokens.deleteByAuthCode authCode, (err) ->
-				if err then return done err
-				else return done null, false
+		if !authCode then	db.accessTokens.deleteByAuthCode authCode, (err) ->
+			if err then return done err
+			else return done null, false
 		if client.id isnt authCode.clientID then return done null, false
 		if redirectURI isnt authCode.redirectURI then return done null, false
 		db.authorizationCodes.delete code, (err) ->
