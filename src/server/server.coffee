@@ -50,7 +50,7 @@ The real db implementation will come later.
 ###
 
 routes.forEach (rt) ->
-	app[rt.verb] "/api#{rt.path}", rt.fn
+	app[rt.verb] rt.path, rt.fn
 
 app.use exceptionHandler
 

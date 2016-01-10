@@ -6,7 +6,7 @@ route =
 	fn: [
 		(req, res) ->
 			if req.isAuthenticated and req.isAuthenticated() then req.logout()
-			res.redirect "/login"
+			res.status(200).send()
 	]
 
 module.exports = route

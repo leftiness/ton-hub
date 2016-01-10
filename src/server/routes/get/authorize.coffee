@@ -7,9 +7,9 @@ db = require "../../database/index.js"
 
 routes =
 	verb: "get"
-	path: "/authorize"
+	path: "/oauth2/authorize"
 	fn: [
-		ensure.ensureLoggedIn "/api/login"
+		ensure.ensureLoggedIn "/login"
 		auth.authorization (clientID, redirectURI, done) ->
 			db.clients.findByClientID clientID, (err, client) ->
 				if err then return done err
@@ -19,7 +19,7 @@ routes =
 		(req, res, next) ->
 			id = req.oauth2.transactionID
 			client = req.oauth2.client
-			url = "/api/confirm?id=#{id}&client=#{client.name}"
+			url = "/oauth2/confirm?id=#{id}&client=#{client.name}"
 			state = req.query.state
 			if !state
 				message = "Missing required parameter: state"

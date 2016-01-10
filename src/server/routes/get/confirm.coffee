@@ -2,7 +2,7 @@ xsrf = require "../../common/XsrfService.js"
 
 route =
 	verb: "get"
-	path: "/confirm"
+	path: "/oauth2/confirm"
 	fn: [
 		xsrf.set
 		(req, res) ->

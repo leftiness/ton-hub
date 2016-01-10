@@ -14,7 +14,7 @@ route =
 				if err then return next err
 				else if !user
 					message = encodeURIComponent info.message
-					url = "/api/login?error=#{message}"
+					url = "/login?error=#{message}"
 					return res.redirect url
 				else req.login user, (err) ->
 					returnTo = req.session?.returnTo

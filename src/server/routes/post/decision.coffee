@@ -5,9 +5,9 @@ xsrf = require "../../common/XsrfService.js"
 
 routes =
 	verb: "post"
-	path: "/decision"
+	path: "/oauth2/decision"
 	fn: [
-		ensure.ensureLoggedIn "/api/login"
+		ensure.ensureLoggedIn "/login"
 		xsrf.check
 		auth.decision()
 	]

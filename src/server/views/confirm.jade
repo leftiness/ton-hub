@@ -3,7 +3,7 @@ html
 		link(rel="stylesheet" href="/picnic.css")
 		link(rel="stylesheet" href="/dialog.css")
 	body
-		form.form-box(action="/api/decision" method="post" target="_top")
+		form.form-box(action="/oauth2/decision" method="post" target="_top")
 			input(type="hidden" name="xsrf" value="#{xsrf}")
 			input(type="hidden" name="transaction_id" value="#{id}")
 			section
