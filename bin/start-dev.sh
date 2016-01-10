@@ -1,2 +1,2 @@
 #!/bin/bash
-pm2 start ./dist/server.js
+node ./dist/mainDev.js &

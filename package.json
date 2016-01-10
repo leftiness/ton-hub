@@ -32,11 +32,10 @@
 		"clean:fast": "bash ./bin/clean-fast.sh",
 		"clean:full": "bash ./bin/clean-full.sh",
 		"postinstall": "bash ./bin/postinstall.sh",
-		"restart:dev": "bash ./bin/restart-dev.sh",
+		"restart": "bash ./bin/restart.sh",
 		"start": "bash ./bin/start.sh",
 		"start:dev": "bash ./bin/start-dev.sh",
 		"stop": "bash ./bin/stop.sh",
-		"stop:dev": "bash ./bin/stop-dev.sh",
 		"stop:full": "bash ./bin/stop-full.sh",
 		"vendor:picnic": "bash ./bin/vendor-picnic.sh",
 		"watch:config": "bash ./bin/watch-config.sh",
@@ -65,7 +64,7 @@
 		"passport-http-bearer": "^1.0.1",
 		"passport-local": "^1.0.0",
 		"passport-oauth2-client-password": "^0.1.2",
-		"pm2": "^0.15.7",
+		"pm2": "^1.0.0",
 		"prettyjson": "^1.1.3"
 	}
 }
