@@ -49,15 +49,17 @@ passport.use new BearerStrategy passReqToCallback, (req, accessToken, done) ->
 			###
 			if err then return done err, false, genericError
 			else if !user then return done null, false, invalidToken
-			else db.clients.findByClientID token.clientID, (err, client) ->
+			else db.clients.find token.clientID, (err, client) ->
 				if err then return done err, false, genericError
+				else if !client then return done err, false, invalidToken
 				else
 					### TODO
 					Set a "dev" environment var to disable this app secret proof check
 					and therefore allow postman to make requests using just access token.
 					###
-					proof = req.body.proof
-					if !proof or proof isnt (crypto.hmac accessToken, client.clientSecret)
+					proof = req.headers["x-ton-secret-proof"]
+					expected = crypto.hmac accessToken, client.clientSecret
+					if !proof or proof isnt expected
 						db.accessTokens.delete accessToken, (err) ->
 							if err then return done err, false, genericError
 							else return done err, false, invalidProof

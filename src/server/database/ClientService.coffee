@@ -8,18 +8,21 @@ secret = config.secret.oauth2_client_key
 
 # TODO Obviously stubbed.
 
+decrypt = (client) ->
+	util = require "util"
+	clone = util._extend {}, client
+	cipher = client.clientSecret
+	clone.clientSecret = crypto.unaes cipher, client.salt, secret
+	return clone
+
 service =
 	find: (id, done) ->
 		for client in clients
-			if client.id == id
-				cipher = client.clientSecret
-				decrypt = crypto.unaes cipher, client.salt, secret
-				client.clientSecret = decrypt
-				return done null, client
+			if client.id == id then return done null, decrypt client
 		return done null, null
 	findByClientID: (clientID, done) ->
 		for client in clients
-			if client.clientID == clientID then return done null, client
+			if client.clientID == clientID then return done null, decrypt client
 		return done null, null
 	save: (clientID, name, clientSecret, redirectURI, done) ->
 		salt = uuid.v4();
