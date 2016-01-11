@@ -6,12 +6,14 @@ BearerStrategy = require("passport-http-bearer").Strategy
 db = require "../database/index.js"
 messages = require "./messages.js"
 crypto = require "./CryptoService.js"
+config = require "../config.json"
 
 genericError = { message: messages.error.generic }
 invalidCredentials = { message: messages.invalid.credentials }
 invalidToken = { message: messages.invalid.token }
 invalidProof = { message: messages.invalid.proof }
 passReqToCallback = { passReqToCallback: true }
+key = config.secret.oauth2_client_key
 
 passport.serializeUser (user, done) ->
 	return done null, user.id
@@ -32,7 +34,7 @@ passport.use new ClientPasswordStrategy (clientID, clientSecret, done) ->
 	db.clients.findByClientID clientID, (err, client) ->
 		if err then return done err, false, genericError
 		else if !client then return done null, false, invalidCredentials
-		else if client.clientSecret isnt (crypto.pbkdf2 clientSecret, client.salt)
+		else if client.clientSecret isnt clientSecret
 			return done null, false, invalidCredentials
 		else return done null, client
 

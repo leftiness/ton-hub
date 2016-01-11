@@ -1,15 +1,21 @@
 uuid = require "node-uuid"
 
 crypto = require "../common/CryptoService.js"
+config = require "../config.json"
 
 clients = []
+secret = config.secret.oauth2_client_key
 
 # TODO Obviously stubbed.
 
 service =
 	find: (id, done) ->
 		for client in clients
-			if client.id == id then return done null, client
+			if client.id == id
+				cipher = client.clientSecret
+				decrypt = crypto.unaes cipher, client.salt, secret
+				client.clientSecret = decrypt
+				return done null, client
 		return done null, null
 	findByClientID: (clientID, done) ->
 		for client in clients
@@ -21,7 +27,7 @@ service =
 			id: clients.length + 1
 			clientID: clientID
 			name: name
-			clientSecret: crypto.pbkdf2 clientSecret, salt
+			clientSecret: crypto.aes clientSecret, salt, secret
 			redirectURI: redirectURI
 			salt: salt
 		### TODO

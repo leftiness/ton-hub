@@ -1,6 +1,7 @@
 {
 	"port": "5000",
 	"secret": {
+		"oauth2_client_key": "secretlol",
 		"cookie_secret": "suchsecret"
 	},
 	"pbkdf2_iterations": 1000
