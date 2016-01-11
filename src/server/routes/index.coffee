@@ -1,6 +1,7 @@
 routes = [
 	require "./get/authorize.js"
 	require "./get/confirm.js"
+	require "./get/identity.js"
 	require "./get/login.js"
 	require "./get/logout.js"
 	require "./get/settings.js"
