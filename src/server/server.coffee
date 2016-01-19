@@ -11,6 +11,7 @@ config = require "../config.json"
 routes = require "./routes/index.js"
 exceptionHandler = require "./common/ExceptionHandler.js"
 tokenInterceptor = require "./common/TokenInterceptor.js"
+database = require "./database/database.js"
 
 require "./common/passportConfig.js"
 
@@ -54,5 +55,6 @@ routes.forEach (rt) ->
 
 app.use exceptionHandler
 
-app.listen (port), ->
-	console.log "All systems are go! Port: #{port}"
+database.sync().then ->
+	app.listen port, ->
+		console.log "All systems are go! Port: #{port}"

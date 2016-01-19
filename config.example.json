@@ -4,5 +4,17 @@
 		"oauth2_client_key": "secretlol",
 		"cookie_secret": "suchsecret"
 	},
-	"pbkdf2_iterations": 1000
+	"pbkdf2_iterations": 1000,
+	"database": {
+		"database": "bigdatabase",
+		"username": "bestusername",
+		"password": "omgsecret",
+		"host": "localhost",
+		"dialect": "sqlite",
+		"pool": {
+      "max": 5,
+      "min": 0,
+      "idle": 10000
+		}
+	}
 }

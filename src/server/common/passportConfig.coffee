@@ -15,6 +15,8 @@ invalidProof = { message: messages.invalid.proof }
 passReqToCallback = { passReqToCallback: true }
 key = config.secret.oauth2_client_key
 
+# TODO Use new sequelize db access code. Get rid of old stubbed stuff.
+
 passport.serializeUser (user, done) ->
 	return done null, user.id
 
