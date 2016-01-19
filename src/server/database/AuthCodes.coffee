@@ -16,7 +16,7 @@ fields =
 		defaultValue: Seq.UUIDV4
 		unique: true
 	userId:
-		type: Seq.STRING
+		type: Seq.UUID
 		allowNull: false
 		unique: "userId:clientId"
 		validate:
@@ -26,7 +26,7 @@ fields =
 			model: Users
 			key: "id"
 	clientId:
-		type: Seq.STRING
+		type: Seq.UUID
 		allowNull: false
 		unqiue: "userId:clientId"
 		validate:
