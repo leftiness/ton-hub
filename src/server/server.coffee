@@ -15,6 +15,7 @@ database = require "./database/database.js"
 
 require "./common/passportConfig.js"
 
+env = process.env.NODE_ENV || "development"
 app = express()
 port = process.env.PORT || config.port
 # TODO Not keyboard cat... but what should it be? What are these options anyway?
@@ -56,5 +57,8 @@ routes.forEach (rt) ->
 app.use exceptionHandler
 
 database.sync().then ->
+	if env is "development"
+		for own k, v of database.models
+			v._dummy?()
 	app.listen port, ->
 		console.log "All systems are go! Port: #{port}"

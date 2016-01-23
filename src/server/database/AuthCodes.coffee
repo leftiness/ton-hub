@@ -4,9 +4,7 @@ db = require "./database.js"
 Users = require "./Users.js"
 Clients = require "./Clients.js"
 
-AuthCodes = db.define "AuthCodes", fields
-
-fields =
+AuthCodes = db.define "AuthCodes", {
 	id:
 		type: Seq.UUID
 		defaultValue: Seq.UUIDV4
@@ -44,5 +42,6 @@ fields =
 		references:
 			model: Clients
 			key: "redirectUri"
+}
 
 module.exports = AuthCodes

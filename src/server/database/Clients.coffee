@@ -7,9 +7,7 @@ config = require "../config.json"
 
 secret = config.secret.oauth2_client_key
 
-Clients = db.define "AuthCodes", fields, options
-
-fields =
+Clients = db.define "Clients", {
 	id:
 		type: Seq.UUID
 		defaultValue: Seq.UUIDV4
@@ -34,20 +32,24 @@ fields =
 			notEmpty: true
 	salt:
 		type: Seq.UUID
-		defaultValue: Seq.UUIDV4
 		unique: true
 	redirectUri:
 		type: Seq.STRING
 		allowNull: false
 		validate:
 			isUrl: true
-			notEmpty: true
-
-options =
+			notEmpty: true,
+} , {
 	classMethods:
-		compareSecrets: (fromUser, fromDatabase, salt) ->
+		_compareSecrets: (fromUser, fromDatabase, salt) ->
 			encrypted = crypto.aes fromUser, salt, secret
 			return encrypted is fromDatabase
+		_dummy: ->
+			Clients.create
+				clientId: "bestapp"
+				clientName: "BestApp"
+				clientSecret: "secret"
+				redirectUri: "localhost"
 	hooks:
 		beforeCreate: (client, options) ->
 			unencrypted = client.clientSecret
@@ -67,6 +69,7 @@ options =
 			salt = client.salt
 			unencrypted = crypto.unaes clientSecret, salt, secret
 			client.clientSecret = unencrypted
+}
 
 ### TODO
 Add records with "approved: false". I should approve clients before they

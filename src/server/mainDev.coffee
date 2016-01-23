@@ -5,7 +5,7 @@ pm2.connect ->
 		script: "./dist/server.js"
 		name: "ton-hub"
 		env:
-			NODE_ENV: "dev"
+			NODE_ENV: "development"
 	pm2.start conf, (err) ->
 		if err
 			console.error "Error while launching applications", err.stack || err

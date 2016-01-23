@@ -5,9 +5,7 @@ Users = require "./Users.js"
 Clients = require "./Clients.js"
 AuthCodes = require "./AuthCodes.js"
 
-AccessTokens = db.define "AccessTokens", fields
-
-fields =
+AccessTokens = db.define "AccessTokens", {
 	id:
 		type: Seq.UUID
 		defaultValue: Seq.UUIDV4
@@ -46,5 +44,6 @@ fields =
 		references:
 			model: AuthCodes
 			key: "id"
+}
 
 module.exports = AccessTokens
