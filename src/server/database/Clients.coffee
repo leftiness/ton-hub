@@ -12,16 +12,10 @@ Clients = db.define "Clients", {
 		type: Seq.UUID
 		defaultValue: Seq.UUIDV4
 		primaryKey: true
-	clientId:
+	client:
 		type: Seq.STRING
 		allowNull: false
 		unique: true
-		validate:
-			isAlphanumeric: true
-			notEmpty: true
-	clientName:
-		type: Seq.STRING
-		allowNull: false
 		validate:
 			isAlphanumeric: true
 			notEmpty: true
@@ -36,6 +30,7 @@ Clients = db.define "Clients", {
 	redirectUri:
 		type: Seq.STRING
 		allowNull: false
+		unique: true
 		validate:
 			isUrl: true
 			notEmpty: true,
@@ -46,10 +41,14 @@ Clients = db.define "Clients", {
 			return encrypted is fromDatabase
 		_dummy: ->
 			Clients.create
-				clientId: "bestapp"
-				clientName: "BestApp"
-				clientSecret: "secret"
-				redirectUri: "localhost"
+					client: "postman"
+					clientSecret: "secret"
+					redirectUri: "https://www.getpostman.com/oauth2/callback"
+				.then () ->
+					Clients.create
+						client: "tonaccount"
+						clientSecret: "secret"
+						redirectUri: "http://localhost:5001/api/callback"
 	hooks:
 		beforeCreate: (client, options) ->
 			unencrypted = client.clientSecret
@@ -65,6 +64,7 @@ Clients = db.define "Clients", {
 				client.clientSecret = encrypted
 				client.salt = salt
 		afterFind: (client, options) ->
+			if !client then return client
 			clientSecret = client.clientSecret
 			salt = client.salt
 			unencrypted = crypto.unaes clientSecret, salt, secret
