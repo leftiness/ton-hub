@@ -3,23 +3,28 @@ oauth2 = require "oauth2orize"
 uuid = require "node-uuid"
 
 auth = require "../../common/AuthService.js"
-db = require "../../database/index.js"
+Clients = require "../../database/Clients.js"
+NoDataException = require "../../exceptions/NoDataException.js"
+BadDataException = require "../../exceptions/BadDataException.js"
 
 routes =
 	verb: "get"
 	path: "/oauth2/authorize"
 	fn: [
 		ensure.ensureLoggedIn "/login"
-		auth.authorization (clientID, redirectURI, done) ->
-			db.clients.findByClientID clientID, (err, client) ->
-				if err then return done err
-				if !client then return done null, false
-				if client.redirectURI != redirectURI then return done null, false
-				done null, client, redirectURI
+		auth.authorization (client, redirectUri, done) ->
+			Clients.findOne where: client: client
+				.then (model) ->
+					if !model then throw new NoDataException()
+					if model.redirectUri != redirectUri then throw new BadDataException()
+					return done null, model.toJSON(), redirectUri
+				.catch NoDataException, BadDataException, (err) ->
+					return done null, false
+				.catch (err) -> return done err
 		(req, res, next) ->
 			id = req.oauth2.transactionID
-			client = req.oauth2.client
-			url = "/oauth2/confirm?id=#{id}&client=#{client.name}"
+			client = req.oauth2.client.client
+			url = "/oauth2/confirm?id=#{id}&client=#{client}"
 			state = req.query.state
 			if !state
 				message = "Missing required parameter: state"
