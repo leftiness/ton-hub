@@ -3,7 +3,6 @@ Seq = require "sequelize"
 db = require "./database.js"
 Users = require "./Users.js"
 Clients = require "./Clients.js"
-AuthCodes = require "./AuthCodes.js"
 
 AccessTokens = db.define "AccessTokens", {
 	id:
@@ -17,9 +16,8 @@ AccessTokens = db.define "AccessTokens", {
 	userId:
 		type: Seq.UUID
 		allowNull: false
-		unique: "userId:clientId"
 		validate:
-			isAlphanumeric: true
+			isUUID: 4
 			notEmpty: true
 		references:
 			model: Users
@@ -27,9 +25,8 @@ AccessTokens = db.define "AccessTokens", {
 	clientId:
 		type: Seq.UUID
 		allowNull: false
-		unqiue: "userId:clientId"
 		validate:
-			isAlphanumeric: true
+			isUUID: 4
 			notEmpty: true
 		references:
 			model: Clients
@@ -37,13 +34,9 @@ AccessTokens = db.define "AccessTokens", {
 	authCode:
 		type: Seq.UUID
 		allowNull: false
-		unique: true
 		validate:
 			isUUID: 4
 			notEmpty: true
-		references:
-			model: AuthCodes
-			key: "id"
 }
 
 module.exports = AccessTokens
