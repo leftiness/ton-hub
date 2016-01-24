@@ -23,7 +23,7 @@ server.deserializeClient (id, done) ->
 		.catch (err) -> return done err
 
 server.grant oauth2.grant.code (client, redirectUri, user, ares, done) ->
-	tooOld = createdAt: $lt: moment().subtract(5, "days").valueOf()
+	tooOld = createdAt: $lt: moment().subtract(5, "minutes").valueOf()
 	fromThisUser =
 		userId: user.id
 		clientId: client.id
@@ -41,6 +41,8 @@ server.exchange oauth2.exchange.code (client, code, redirectUri, done) ->
 	AuthCodes.findOne where: authCode: code
 		.then (model) ->
 			if !model then throw new NoDataException()
+			if moment().diff(moment(model.createdAt), "minutes") >= 5
+				throw new BadDataException()
 			if client.id isnt model.clientId then throw new BadDataException()
 			if redirectUri isnt model.redirectUri then throw new BadDataException()
 			userId = model.userId
