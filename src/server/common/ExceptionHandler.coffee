@@ -13,12 +13,12 @@ handler = (err, req, res, next) ->
 		status: err.status
 		name: err.name
 		error: err.error || err.code
-		error_description: err.error_description || err.message
+		message: err.error_description || err.message
 	json =
 		data: prettyjson.render data, opts
 	log =
 		data: data
-		stack: err.stack
+		err: err
 	console.log prettyjson.render log, opts
 	res.render "error", json
 
