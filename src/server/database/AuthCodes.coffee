@@ -16,9 +16,8 @@ AuthCodes = db.define "AuthCodes", {
 	userId:
 		type: Seq.UUID
 		allowNull: false
-		unique: "userId:clientId"
 		validate:
-			isAlphanumeric: true
+			isUUID: 4
 			notEmpty: true
 		references:
 			model: Users
@@ -26,9 +25,8 @@ AuthCodes = db.define "AuthCodes", {
 	clientId:
 		type: Seq.UUID
 		allowNull: false
-		unqiue: "userId:clientId"
 		validate:
-			isAlphanumeric: true
+			isUUID: 4
 			notEmpty: true
 		references:
 			model: Clients
