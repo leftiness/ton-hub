@@ -41,16 +41,6 @@ app.use passport.initialize()
 app.use passport.session()
 app.use tokenInterceptor
 
-###TODO
-Honestly not even sure if all of this stuff works. That's why I'm creating a
-branch. When I finally get it all working, I'll have a good, clean auth feature,
-and I'll just commit those changes in one commit to the master branch without
-keeping this history full of bumbling. :)
-
-Guess I'll probably commit when I have the auth working with stubbed db stuff.
-The real db implementation will come later.
-###
-
 routes.forEach (rt) ->
 	app[rt.verb] rt.path, rt.fn
 
