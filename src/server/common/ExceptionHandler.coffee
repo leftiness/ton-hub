@@ -4,7 +4,9 @@ prettyjson = require "prettyjson"
 handler = (err, req, res, next) ->
 	id = uuid.v4()
 	opts = { noColor: true }
-	# TODO Shouldn't show the body if it has sensitive information...
+	censors = [ "password", "confirm" ]
+	censors.forEach (censor) ->
+		req.body?[censor] = "[censored]" if req.body?[censor]?
 	data =
 		id: id
 		method: req.method
