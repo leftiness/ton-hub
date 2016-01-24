@@ -17,6 +17,12 @@ Users = db.define "Users", {
 		validate:
 			isAlphanumeric: true
 			notEmpty: true
+	email:
+		type: Seq.STRING
+		allowNull: false
+		validate:
+			isEmail: true
+			notEmpty: true
 	password:
 		type: Seq.STRING
 		allowNull: false
@@ -41,6 +47,7 @@ Users = db.define "Users", {
 		_dummy: ->
 			Users.create
 				username: "ada"
+				email: "ada@gmail.com"
 				password: "ada"
 				displayName: "Ada"
 	hooks:
