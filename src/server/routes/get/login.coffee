@@ -6,10 +6,9 @@ route =
 	fn: [
 		xsrf.set
 		(req, res) ->
-			xsrf = req.getXsrf()
 			json =
 				error: req.query?.error
-				xsrf: xsrf
+				xsrf: req.getXsrf()
 			res.render "login", json
 	]
 
