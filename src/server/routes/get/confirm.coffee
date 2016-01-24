@@ -6,17 +6,12 @@ route =
 	fn: [
 		xsrf.set
 		(req, res) ->
-			xsrf = req.getXsrf()
-			id = req.query?.id
-			client = req.query?.client
-			name = req.user.name
-			email = req.user.email
 			json =
-				xsrf: xsrf
-				id: id
-				client: client
-				name: name
-				email: email
+				xsrf: req.getXsrf()
+				id: req.query?.id
+				client: req.query?.client
+				name: req.user.displayName
+				email: req.user.email
 			res.render "confirm", json
 	]
 
