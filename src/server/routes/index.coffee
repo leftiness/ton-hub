@@ -7,6 +7,7 @@ routes = [
 	require "./get/settings.js"
 	require "./get/teapot.js"
 	require "./post/decision.js"
+	require "./post/identity.js"
 	require "./post/login.js"
 	require "./post/settings.js"
 	require "./post/signup.js"
