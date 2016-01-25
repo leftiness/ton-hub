@@ -10,16 +10,20 @@ html
 			if error
 				section.error-box.
 					Error: #{error}
+			if email
+				section.
+					An email with a code has been sent to !{email}.
+			section.input-box
+				label(for="username") Username
+				input(type="text" name="username")
+			section.input-box
+				label(for="code") Activation code
+				input(type="text" name="activationCode")
 			section
-				p.
-					A Tales of Newerth account will be created. An email with a code has 
-					been sent to !{email}. You have to activate the account before you 
-					can sign in.
-				section.input-box
-					label(for="username") Username
-					input(type="text" name="username")
-				section.input-box
-					label(for="code") Activation code
-					input(type="text" name="activationCode")
-				section
-					button.wide-button() Activate
+				button.wide-button() Activate
+			section.help-link
+				a(href="/login") Log in
+			section.help-link
+				a(href="/signup") Signup
+			section.help-link
+				a(href="/recover") Recover account
