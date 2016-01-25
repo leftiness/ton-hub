@@ -39,6 +39,12 @@ Users = db.define "Users", {
 		type: Seq.UUID
 		defaultValue: Seq.UUIDV4
 		unique: true
+	active:
+		type: Seq.STRING
+		defaultValue: false
+	activationCode:
+		type: Seq.UUID
+		defaultValue: Seq.UUIDV4
 } , {
 	classMethods:
 		_comparePasswords: (fromUser, fromDatabase, salt) ->
@@ -50,6 +56,7 @@ Users = db.define "Users", {
 				email: "ada@gmail.com"
 				password: "ada"
 				displayName: "Ada"
+				active: true
 	hooks:
 		beforeCreate: (user, options) ->
 			unhashed = user.password
