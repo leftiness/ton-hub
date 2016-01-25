@@ -12,11 +12,12 @@ Users = require "../database/Users.js"
 NoDataException = require "../exceptions/NoDataException.js"
 BadDataException = require "../exceptions/BadDataException.js"
 
-genericError = { message: messages.error.generic }
-invalidCredentials = { message: messages.invalid.credentials }
-invalidToken = { message: messages.invalid.token }
-invalidProof = { message: messages.invalid.proof }
-passReqToCallback = { passReqToCallback: true }
+genericError = message: messages.error.generic
+invalidCredentials = message: messages.invalid.credentials
+invalidToken = message: messages.invalid.token
+invalidProof = message: messages.invalid.proof
+inactiveAccount = message: messages.inactive.account
+passReqToCallback = passReqToCallback: true
 key = config.secret.oauth2_client_key
 
 passport.serializeUser (user, done) ->
@@ -33,6 +34,7 @@ passport.use new LocalStrategy (username, password, done) ->
 			if !model then throw new NoDataException invalidCredentials
 			if model.password isnt (crypto.pbkdf2 password, model.salt)
 				throw new BadDataException invalidCredentials
+			if !model.active then throw new BadDataException inactiveAccount
 			return done null, model.toJSON()
 		.catch NoDataException, BadDataException, (err) ->
 			return done null, false, err.message
@@ -63,6 +65,7 @@ passport.use new BearerStrategy passReqToCallback, (req, accessToken, done) ->
 			and this is just for illustrative purposes.
 			###
 			if !model then throw new NoDataException invalidToken
+			if !model.active then throw new BadDataException inactiveAccount
 			user = model.toJSON()
 			return Clients.findOne where: id: clientId
 		.then (model) ->

@@ -1,6 +1,8 @@
 messages =
 	error:
 		generic: "Server error"
+	inactive:
+		account: "Inactive account"
 	invalid:
 		credentials: "Invalid credentials"
 		token: "Invalid access token"
