@@ -10,7 +10,6 @@ morgan = require "morgan"
 config = require "../config.json"
 routes = require "./routes/index.js"
 exceptionHandler = require "./common/ExceptionHandler.js"
-tokenInterceptor = require "./common/TokenInterceptor.js"
 database = require "./database/database.js"
 
 require "./common/passportConfig.js"
@@ -39,7 +38,6 @@ app.use session sessionConf
 app.use express.static __dirname
 app.use passport.initialize()
 app.use passport.session()
-app.use tokenInterceptor
 
 routes.forEach (rt) ->
 	app[rt.verb] rt.path, rt.fn
