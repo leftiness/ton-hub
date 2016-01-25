@@ -1,0 +1,25 @@
+html
+	head
+		link(rel="stylesheet" href="/picnic.css")
+		link(rel="stylesheet" href="/dialog.css")
+	body
+		form.form-box(action="/activate" method="post" target="_top")
+			input(type="hidden" name="xsrf" value="#{xsrf}")
+			section
+				h2 Activate
+			if error
+				section.error-box.
+					Error: #{error}
+			section
+				p.
+					A Tales of Newerth account will be created. An email with a code has 
+					been sent to !{email}. You have to activate the account before you 
+					can sign in.
+				section.input-box
+					label(for="username") Username
+					input(type="text" name="username")
+				section.input-box
+					label(for="code") Activation code
+					input(type="text" name="activationCode")
+				section
+					button.wide-button() Activate

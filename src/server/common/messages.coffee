@@ -10,6 +10,7 @@ messages =
 		email: "Invalid email"
 		username: "Invalid username"
 		name: "Invalid name"
+		activation: "Invalid activation code"
 		field: "Invalid field"
 
 module.exports = messages
