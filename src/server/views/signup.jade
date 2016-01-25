@@ -1,0 +1,58 @@
+html
+	head
+		link(rel="stylesheet" href="/picnic.css")
+		link(rel="stylesheet" href="/dialog.css")
+	body
+		form.form-box(action="/signup" method="post" target="_top")
+			input(type="hidden" name="xsrf" value="#{xsrf}")
+			section
+				h2 Sign up
+			if error
+				section.error-box.
+					Error: #{error}
+			section.input-box
+				label(for="username") Username
+				input#username(type="text" name="username" required)
+			section.input-box
+				label(for="displayName") Display name
+				input(type="text" name="displayName" required)
+			section.input-box
+				label(for="email") Email
+				input(type="email" name="email" required)
+			section.input-box
+				label(for="password") Password
+				input#password(type="password" name="password" required)
+			section.input-box
+				label(for="confirm") Confirm password
+				input#confirm(type="password" name="confirm" required)
+			section
+				button.wide-button(type="submit") Submit
+			section.help-link
+				a(href="/login") Log in
+			section.help-link
+				a(href="/recover") Recover account
+		script(src="/nanoajax.min.js")
+		script.
+			var password = document.getElementById("password");
+			var confirm = document.getElementById("confirm");
+			function validate() {
+				var check = password.value !== confirm.value;
+				var val = check ? "Passwords must match" : "";
+				confirm.setCustomValidity(val);
+			}
+			password.onkeyup = validate;
+			confirm.onkeyup = validate;
+		script.
+			var username = document.getElementById("username");
+			function check() {
+				var opts = {
+					"url": "/identity",
+					"method": "POST",
+					"body": "username=" + username.value
+				}
+				nanoajax.ajax(opts, function (code) {
+					var val = code === 400 ? "Username is unavailable" : "";
+					username.setCustomValidity(val);
+				});
+			}
+			username.onblur = check
