@@ -37,6 +37,7 @@
 		"start:dev": "bash ./bin/start-dev.sh",
 		"stop": "bash ./bin/stop.sh",
 		"stop:full": "bash ./bin/stop-full.sh",
+		"vendor:nanoajax": "bash ./bin/vendor-nanoajax.sh",
 		"vendor:picnic": "bash ./bin/vendor-picnic.sh",
 		"watch:config": "bash ./bin/watch-config.sh",
 		"watch:server": "bash ./bin/watch-server.sh",
