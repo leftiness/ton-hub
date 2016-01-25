@@ -2,7 +2,7 @@ passport = require "passport"
 
 route =
 	verb: "get"
-	path: "/api/identity"
+	path: "/identity"
 	fn: [
 		passport.authenticate "bearer", { session: false }
 		(req, res) ->
