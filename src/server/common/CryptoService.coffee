@@ -21,12 +21,12 @@ service =
 		message = crypto.enc.Utf8.parse message
 		salt = b64 salt
 		secret = b64 secret
-		obj = crypto.AES.encrypt message, secret, { iv: salt }
+		obj = crypto.AES.encrypt message, secret, iv: salt
 		return obj.toString()
 	unaes: (cipher, salt, secret) ->
 		salt = b64 salt
 		secret = b64 secret
-		obj = crypto.AES.decrypt cipher, secret, { iv: salt }
+		obj = crypto.AES.decrypt cipher, secret, iv: salt
 		return obj.toString(crypto.enc.Utf8)
 
 module.exports = service

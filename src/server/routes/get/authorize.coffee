@@ -33,7 +33,7 @@ routes =
 			# TODO Add oauth2 authorization scope parameter
 			res.cookie "xsrf", uuid.v4()
 			res.redirect url
-		auth.errorHandler { mode: "indirect" }
+		auth.errorHandler mode: "indirect"
 	]
 
 module.exports = routes

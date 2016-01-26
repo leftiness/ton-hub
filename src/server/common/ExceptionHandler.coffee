@@ -3,7 +3,7 @@ prettyjson = require "prettyjson"
 
 handler = (err, req, res, next) ->
 	id = uuid.v4()
-	opts = { noColor: true }
+	opts = noColor: true
 	censors = [ "password", "confirm" ]
 	censors.forEach (censor) ->
 		req.body?[censor] = "[censored]" if req.body?[censor]?

@@ -17,7 +17,7 @@ mid =
 		res.clearCookie "xsrf"
 		post = req.body?.xsrf
 		if !cookie or !post or (cookie isnt post)
-			return next { error: messages.invalid.xsrf }
+			return next error: messages.invalid.xsrf
 		else return next()
 
 module.exports = mid

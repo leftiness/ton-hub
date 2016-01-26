@@ -4,7 +4,7 @@ routes =
 	verb: "get"
 	path: "/api/settings"
 	fn: [
-		passport.authenticate "bearer", { session: false }
+		passport.authenticate "bearer", session: false
 		(req, res) ->
 			# TODO Stubbed
 			json =
