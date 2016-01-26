@@ -1,4 +1,5 @@
 seq = require "sequelize"
+moment = require "moment"
 
 xsrf = require "../../common/XsrfService.js"
 messages = require "../../common/messages.js"
@@ -10,11 +11,16 @@ route =
 	fn: [
 		xsrf.check
 		(req, res, next) ->
-			Users.create
-					username: req.body.username
-					email: req.body.email
-					password: req.body.password
-					displayName: req.body.displayName
+			Users.destroy
+					where:
+						createdAt: $lt: moment().subtract(5, "days").valueOf()
+						active: false
+				.then () ->
+					return Users.create
+							username: req.body.username
+							email: req.body.email
+							password: req.body.password
+							displayName: req.body.displayName
 				.then (model) ->
 					# TODO Send email with activation code and username.
 					# TODO Remove console.log of activation code
