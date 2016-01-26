@@ -16,6 +16,7 @@ routes =
 			Clients.findOne where: client: client
 				.then (model) ->
 					if !model then throw new NoDataException()
+					if !model.active then throw new BadDataException()
 					if model.redirectUri != redirectUri then throw new BadDataException()
 					return done null, model.toJSON(), redirectUri
 				.catch NoDataException, BadDataException, (err) ->

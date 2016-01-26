@@ -17,6 +17,7 @@ invalidCredentials = message: messages.invalid.credentials
 invalidToken = message: messages.invalid.token
 invalidProof = message: messages.invalid.proof
 inactiveAccount = message: messages.inactive.account
+inactiveClient = message: messages.inactive.client
 passReqToCallback = passReqToCallback: true
 key = config.secret.oauth2_client_key
 
@@ -44,6 +45,7 @@ passport.use new ClientPasswordStrategy (client, clientSecret, done) ->
 	Clients.findOne where: client: client
 		.then (model) ->
 			if !model then throw new NoDataException invalidCredentials
+			if !model.active then throw new BadDataException inactiveClient
 			if model.clientSecret isnt clientSecret
 				throw new BadDataException invalidCredentials
 			return done null, model.toJSON()
@@ -70,6 +72,7 @@ passport.use new BearerStrategy passReqToCallback, (req, accessToken, done) ->
 			return Clients.findOne where: id: clientId
 		.then (model) ->
 			if !model then throw new NoDataException invalidToken
+			if !model.active then throw new BadDataException inactiveClient
 			proof = req.headers["x-ton-secret-proof"]
 			expected = crypto.hmac accessToken, model.clientSecret
 			if !proof or proof isnt expected

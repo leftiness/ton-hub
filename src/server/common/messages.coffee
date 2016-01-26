@@ -3,6 +3,7 @@ messages =
 		generic: "Server error"
 	inactive:
 		account: "Inactive account"
+		client: "Inactive client"
 	invalid:
 		credentials: "Invalid credentials"
 		token: "Invalid access token"

@@ -34,6 +34,9 @@ Clients = db.define "Clients", {
 		validate:
 			isUrl: true
 			notEmpty: true,
+	active:
+		type: Seq.STRING
+		defaultValue: false
 } , {
 	classMethods:
 		_compareSecrets: (fromUser, fromDatabase, salt) ->
@@ -44,11 +47,13 @@ Clients = db.define "Clients", {
 					client: "postman"
 					clientSecret: "secret"
 					redirectUri: "https://www.getpostman.com/oauth2/callback"
+					approved: true
 				.then () ->
 					Clients.create
 						client: "tonaccount"
 						clientSecret: "secret"
 						redirectUri: "http://localhost:5001/api/callback"
+						approved: true
 	hooks:
 		beforeCreate: (client, options) ->
 			unencrypted = client.clientSecret
@@ -70,10 +75,5 @@ Clients = db.define "Clients", {
 			unencrypted = crypto.unaes clientSecret, salt, secret
 			client.clientSecret = unencrypted
 }
-
-### TODO
-Add records with "approved: false". I should approve clients before they
-can actually access the API.
-###
 
 module.exports = Clients
