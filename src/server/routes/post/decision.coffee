@@ -7,7 +7,7 @@ routes =
 	verb: "post"
 	path: "/oauth2/decision"
 	fn: [
-		ensure.ensureLoggedIn "/login"
+		ensure.ensureLoggedIn "/sign_in"
 		xsrf.check
 		auth.decision()
 	]

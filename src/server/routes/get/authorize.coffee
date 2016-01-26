@@ -11,7 +11,7 @@ routes =
 	verb: "get"
 	path: "/oauth2/authorize"
 	fn: [
-		ensure.ensureLoggedIn "/login"
+		ensure.ensureLoggedIn "/sign_in"
 		auth.authorization (client, redirectUri, done) ->
 			Clients.findOne where: client: client
 				.then (model) ->

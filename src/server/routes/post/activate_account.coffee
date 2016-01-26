@@ -22,7 +22,7 @@ route =
 					where = where: username: username
 					return Users.update update, where
 				.then () ->
-					return res.redirect "/login"
+					return res.redirect "/sign_in"
 				.catch NoDataException, (err) ->
 					message = messages.invalid.username
 					return res.redirect "/activate_account?error=#{message}"

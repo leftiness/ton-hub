@@ -6,7 +6,7 @@ config = require "../../../config.json"
 
 route =
 	verb: "post"
-	path: "/login"
+	path: "/sign_in"
 	fn: [
 		xsrf.check
 		(req, res, next) ->
@@ -14,7 +14,7 @@ route =
 				if err then return next err
 				else if !user
 					message = encodeURIComponent info.message
-					url = "/login?error=#{message}"
+					url = "/sign_in?error=#{message}"
 					return res.redirect url
 				else req.login user, (err) ->
 					returnTo = req.session?.returnTo
