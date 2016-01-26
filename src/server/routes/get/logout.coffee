@@ -1,5 +1,3 @@
-ensure = require "connect-ensure-login"
-
 route =
 	verb: "get"
 	path: "/logout"

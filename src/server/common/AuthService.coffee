@@ -1,7 +1,4 @@
 oauth2 = require "oauth2orize"
-passport = require "passport"
-ensure = require "connect-ensure-login"
-uuid = require "node-uuid"
 moment = require "moment"
 
 Clients = require "../database/Clients.js"
