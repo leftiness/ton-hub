@@ -1,6 +1,6 @@
 route =
 	verb: "get"
-	path: "/logout"
+	path: "/sign_out"
 	fn: [
 		(req, res) ->
 			if req.isAuthenticated and req.isAuthenticated() then req.logout()
