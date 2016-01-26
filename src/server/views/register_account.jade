@@ -3,10 +3,10 @@ html
 		link(rel="stylesheet" href="/picnic.css")
 		link(rel="stylesheet" href="/dialog.css")
 	body
-		form.form-box(action="/signup" method="post" target="_top")
+		form.form-box(action="/register_account" method="post" target="_top")
 			input(type="hidden" name="xsrf" value="#{xsrf}")
 			section
-				h2 Sign up
+				h2 Register account
 			if error
 				section.error-box.
 					Error: #{error}

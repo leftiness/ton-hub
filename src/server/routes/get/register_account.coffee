@@ -2,14 +2,14 @@ xsrf = require "../../common/XsrfService.js"
 
 route =
 	verb: "get"
-	path: "/signup"
+	path: "/register_account"
 	fn: [
 		xsrf.set
 		(req, res) ->
 			json =
 				error: req.query?.error
 				xsrf: req.getXsrf()
-			res.render "signup", json
+			res.render "register_account", json
 	]
 
 module.exports = route

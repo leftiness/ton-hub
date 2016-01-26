@@ -6,7 +6,7 @@ Users = require "../../database/Users.js"
 
 route =
 	verb: "post"
-	path: "/signup"
+	path: "/register_account"
 	fn: [
 		xsrf.check
 		(req, res, next) ->
@@ -26,7 +26,7 @@ route =
 					err.errors.forEach (error) ->
 						paths.push error.path
 					message = "#{messages.invalid.field}: #{paths}"
-					url = "/signup?error=#{message}"
+					url = "/register_account?error=#{message}"
 					return res.redirect url
 				.catch (err) -> return next err
 		]
