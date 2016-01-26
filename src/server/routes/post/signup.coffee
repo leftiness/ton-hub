@@ -19,7 +19,7 @@ route =
 					# TODO Send email with activation code and username.
 					# TODO Remove console.log of activation code
 					console.log "Activation: #{model.activationCode}"
-					url = "/activate?email=#{req.body.email}"
+					url = "/activate_account?email=#{req.body.email}"
 					return res.redirect url
 				.catch seq.ValidationError, (err) ->
 					paths = []

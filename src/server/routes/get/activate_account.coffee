@@ -2,7 +2,7 @@ xsrf = require "../../common/XsrfService.js"
 
 route =
 	verb: "get"
-	path: "/activate"
+	path: "/activate_account"
 	fn: [
 		xsrf.set
 		(req, res) ->
@@ -10,7 +10,7 @@ route =
 				error: req.query?.error
 				email: req.query?.email
 				xsrf: req.getXsrf()
-			res.render "activate", json
+			res.render "activate_account", json
 	]
 
 module.exports = route

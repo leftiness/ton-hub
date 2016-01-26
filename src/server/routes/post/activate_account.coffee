@@ -8,7 +8,7 @@ BadDataException = require "../../exceptions/BadDataException.js"
 
 route =
 	verb: "post"
-	path: "/activate"
+	path: "/activate_account"
 	fn: [
 		xsrf.check
 		(req, res, next) ->
@@ -24,9 +24,11 @@ route =
 				.then () ->
 					return res.redirect "/login"
 				.catch NoDataException, (err) ->
-					return res.redirect "/activate?error=#{messages.invalid.username}"
+					message = messages.invalid.username
+					return res.redirect "/activate_account?error=#{message}"
 				.catch BadDataException, (err) ->
-					return res.redirect "/activate?error=#{messages.invalid.activation}"
+					message = messages.invalid.activation
+					return res.redirect "/activate_account?error=#{message}"
 				.catch (err) -> return next err
 		]
 
