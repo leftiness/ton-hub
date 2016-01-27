@@ -12,13 +12,15 @@ html
 					Error: #{error}
 			section.input-box
 				label(for="username") Username
-				input#username(type="text" name="username" required)
+				input#username(type="text" name="username" required maxlength="64")
 			section.input-box
 				label(for="displayName") Display name
-				input(type="text" name="displayName" required)
+				input#displayName(type="text" name="displayName" required maxlength="12" 
+					pattern="^[a-zA-Z0-9`_]*$"
+					)
 			section.input-box
 				label(for="email") Email
-				input(type="email" name="email" required)
+				input(type="email" name="email" required maxlength="254")
 			section.input-box
 				label(for="password") Password
 				input#password(type="password" name="password" required)

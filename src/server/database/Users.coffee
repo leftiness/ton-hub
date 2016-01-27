@@ -17,12 +17,14 @@ Users = db.define "Users", {
 		validate:
 			isAlphanumeric: true
 			notEmpty: true
+			len: [ 1, 65 ]
 	email:
 		type: Seq.STRING
 		allowNull: false
 		validate:
 			isEmail: true
 			notEmpty: true
+			len: [ 1, 255 ]
 	password:
 		type: Seq.STRING
 		allowNull: false
@@ -32,9 +34,11 @@ Users = db.define "Users", {
 	displayName:
 		type: Seq.STRING
 		allowNull: false
+		unique: true
 		validate:
-			isAlphanumeric: true
+			is: [ "^[a-zA-Z0-9`_]*$", "i" ]
 			notEmpty: true
+			len: [ 1, 13 ]
 	salt:
 		type: Seq.UUID
 		defaultValue: Seq.UUIDV4
