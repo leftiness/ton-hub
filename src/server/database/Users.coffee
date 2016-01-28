@@ -44,7 +44,7 @@ Users = db.define "Users", {
 		defaultValue: Seq.UUIDV4
 		unique: true
 	active:
-		type: Seq.STRING
+		type: Seq.BOOLEAN
 		defaultValue: false
 	activationCode:
 		type: Seq.UUID

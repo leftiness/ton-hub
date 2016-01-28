@@ -35,7 +35,7 @@ Clients = db.define "Clients", {
 			isUrl: true
 			notEmpty: true,
 	active:
-		type: Seq.STRING
+		type: Seq.BOOLEAN
 		defaultValue: false
 } , {
 	classMethods:
