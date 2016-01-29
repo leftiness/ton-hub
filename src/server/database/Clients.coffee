@@ -47,13 +47,13 @@ Clients = db.define "Clients", {
 					client: "postman"
 					clientSecret: "secret"
 					redirectUri: "https://www.getpostman.com/oauth2/callback"
-					approved: true
+					active: true
 				.then () ->
 					Clients.create
 						client: "tonaccount"
 						clientSecret: "secret"
 						redirectUri: "http://localhost:5001/api/callback"
-						approved: true
+						active: true
 	hooks:
 		beforeCreate: (client, options) ->
 			unencrypted = client.clientSecret
