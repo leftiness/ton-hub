@@ -40,12 +40,12 @@ app.use express.static __dirname
 app.use passport.initialize()
 app.use passport.session()
 
-routes.forEach (rt) ->
-	app[rt.verb] rt.path, rt.fn
-
-app.use exceptionHandler
-
 database.init()
+	.then ->
+		return Promise.all routes.map (rt) ->
+			return Promise.resolve app[rt.verb] rt.path, rt.fn
+	.then ->
+		return Promise.resolve app.use exceptionHandler
 	.then ->
 		return Promise.resolve app.listen port
 	.then ->
