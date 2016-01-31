@@ -6,11 +6,12 @@ cookieParser = require "cookie-parser"
 passport = require "passport"
 session = require "express-session"
 morgan = require "morgan"
+prettyjson = require "prettyjson"
 
 config = require "../config.json"
 routes = require "./routes/index.js"
 exceptionHandler = require "./common/ExceptionHandler.js"
-database = require "./database/database.js"
+database = require "./common/DatabaseService.js"
 
 require "./common/passportConfig.js"
 
@@ -44,9 +45,11 @@ routes.forEach (rt) ->
 
 app.use exceptionHandler
 
-database.sync().then ->
-	if env is "development"
-		for own k, v of database.models
-			v._dummy?()
-	app.listen port, ->
+database.init()
+	.then ->
+		return Promise.resolve app.listen port
+	.then ->
 		console.log "All systems are go! Port: #{port}"
+	.catch (err) ->
+		console.log "Failed to start"
+		console.log prettyjson.render err, noColor: true
