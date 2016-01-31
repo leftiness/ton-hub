@@ -43,17 +43,17 @@ Clients = db.define "Clients", {
 			encrypted = crypto.aes fromUser, salt, secret
 			return encrypted is fromDatabase
 		_dummy: ->
-			Clients.create
-					client: "postman"
-					clientSecret: "secret"
-					redirectUri: "https://www.getpostman.com/oauth2/callback"
-					active: true
-				.then () ->
-					Clients.create
-						client: "tonaccount"
-						clientSecret: "secret"
-						redirectUri: "http://localhost:5001/api/callback"
-						active: true
+			postman =
+				client: "postman"
+				clientSecret: "secret"
+				redirectUri: "https://www.getpostman.com/oauth2/callback"
+				approved: true
+			tonaccount =
+				client: "tonaccount"
+				clientSecret: "secret"
+				redirectUri: "http://localhost:5001/api/callback"
+				approved: true
+			Clients.bulkCreate [ postman, tonaccount ], individualHooks: true
 	hooks:
 		beforeCreate: (client, options) ->
 			unencrypted = client.clientSecret
