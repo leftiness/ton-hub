@@ -47,12 +47,12 @@ Clients = db.define "Clients", {
 				client: "postman"
 				clientSecret: "secret"
 				redirectUri: "https://www.getpostman.com/oauth2/callback"
-				approved: true
+				active: true
 			tonaccount =
 				client: "tonaccount"
 				clientSecret: "secret"
 				redirectUri: "http://localhost:5001/api/callback"
-				approved: true
+				active: true
 			Clients.bulkCreate [ postman, tonaccount ], individualHooks: true
 	hooks:
 		beforeCreate: (client, options) ->
