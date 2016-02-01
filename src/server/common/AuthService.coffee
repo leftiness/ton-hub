@@ -9,8 +9,6 @@ BadDataException = require "../exceptions/BadDataException.js"
 
 server = oauth2.createServer()
 
-# TODO Use new sequelize db access code. Get rid of old stubbed stuff.
-
 server.serializeClient (client, done) ->
 	done null, client.id
 
