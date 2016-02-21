@@ -32,7 +32,6 @@ routes =
 				type = "invalid_request"
 				return next new oauth2.AuthorizationError message, type
 			# TODO Add oauth2 authorization scope parameter
-			res.cookie "xsrf", uuid.v4()
 			res.redirect url
 		auth.errorHandler mode: "indirect"
 	]
